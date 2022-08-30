@@ -18,6 +18,7 @@ public class DietModel {
 
     @EqualsAndHashCode.Include
     private UUID id;
+
     private String breakfastLiquid;
 
     private String breakfastSolid;

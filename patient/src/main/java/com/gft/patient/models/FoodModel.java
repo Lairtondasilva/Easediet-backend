@@ -25,6 +25,7 @@ public class FoodModel {
     @JoinColumn
     @EqualsAndHashCode.Include
     private UUID id;
+
     private Double sugarG;
 
     private Double fiberG;
