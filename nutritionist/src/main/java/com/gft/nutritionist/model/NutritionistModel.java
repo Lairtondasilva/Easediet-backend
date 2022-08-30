@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -52,10 +53,12 @@ public class NutritionistModel{
     @NotNull
 	private String dietType;
 
+    @Transient
     @OneToMany (mappedBy = "nutritionistModel",cascade = CascadeType.ALL)
     @JsonIgnoreProperties("nutritionistModel")
     private List<DietModel> diets;
 
+    @Transient
     @OneToMany (mappedBy = "nutritionistModel",cascade = CascadeType.ALL)
     @JsonIgnoreProperties("nutritionistModel")
     private List<DietGroupModel> dietGroup;
