@@ -30,14 +30,17 @@ public class NutritionistRepositoryTest {
 
     @BeforeAll
     void start(){
-        this.nutritionistModelTest = nutritionistRepositoryTest.save(new NutritionistModel (
-            UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"),"Miriam Pacheco",
+        var nutri1 = new NutritionistModel (
+            "c81d4e2e-bcf2-11e6-869b-7df92533d2db",
+            "Miriam Pacheco",
             "111111",
             "miriam.pacheco@nutri.com",
             "12345678",
             "Healthy",
             null,
-            null));
+            null);
+
+            nutritionistRepositoryTest.save(nutri1);
     }
 
     @Order(1)
