@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,34 +30,36 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class NutritionistModel{
+public class NutritionistModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private UUID id;
-    
+
     @NotNull
     private String name;
 
     @NotNull
     private String crnNumber;
 
-	@NotNull(message = "O campo e-mail é obrigatório!")
-	@Email(message = "O campo Usuário deve ser um e-mail válido!")
-	private String email;
+    @NotNull(message = "O campo e-mail é obrigatório!")
+    @Email(message = "O campo Usuário deve ser um e-mail válido!")
+    private String email;
 
     @NotNull
-	@Size(min = 8,max = 64)
-	private String password;
+    @Size(min = 8, max = 64)
+    private String password;
 
     @NotNull
-	private String dietType;
+    private String dietType;
 
-    @OneToMany (mappedBy = "nutritionistModel",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "nutritionistModel", cascade = CascadeType.ALL)
+    @Transient
     @JsonIgnoreProperties("nutritionistModel")
     private List<DietModel> diets;
 
-    @OneToMany (mappedBy = "nutritionistModel",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "nutritionistModel", cascade = CascadeType.ALL)
+    @Transient
     @JsonIgnoreProperties("nutritionistModel")
     private List<DietGroupModel> dietGroup;
 

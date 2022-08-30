@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -64,8 +65,10 @@ public class PatientModel {
     private String incomeProfile;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @Transient
     private DietModel diet;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @Transient
     private DietGroupModel dietGroup;
 }

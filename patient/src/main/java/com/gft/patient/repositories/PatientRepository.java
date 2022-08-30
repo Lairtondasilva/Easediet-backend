@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.gft.patient.models.PatientModel;
 
 @Repository
-public interface PatientRepository extends JpaRepository<UUID, PatientModel> {
+public interface PatientRepository extends JpaRepository<PatientModel, UUID> {
 
 }
