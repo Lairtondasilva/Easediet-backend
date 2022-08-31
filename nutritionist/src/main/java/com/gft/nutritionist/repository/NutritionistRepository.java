@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.gft.nutritionist.model.NutritionistModel;
 
 @Repository
-public interface NutritionistRepository extends JpaRepository<NutritionistModel, UUID> {
+public interface NutritionistRepository extends JpaRepository<NutritionistModel, String> {
     Optional<NutritionistModel> findByEmailContainingIgnoreCase(String email);
 }
