@@ -27,9 +27,8 @@ public class NutritionistServiceTest {
     @InjectMocks
     private NutritionistService nutritionistService;
 
-    NutritionistModel nutritionistModelTest = new NutritionistModel(
-            UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"), "Miriam Pacheco", "111111",
-            "miriam.pacheco@nutri.com", "12345678", "Healthy");
+    NutritionistModel nutritionistModelTest = new NutritionistModel("c81d4e2e-bcf2-11e6-869b-7df92533d2db",
+            "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy");
 
     @Order(1)
     @Test
