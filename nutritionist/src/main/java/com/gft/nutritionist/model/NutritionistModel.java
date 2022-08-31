@@ -1,5 +1,6 @@
 package com.gft.nutritionist.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,9 +31,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class NutritionistModel {
+public class NutritionistModel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pg-uuid")
     @EqualsAndHashCode.Include
     private UUID id;
 
@@ -53,14 +57,14 @@ public class NutritionistModel {
     @NotNull
     private String dietType;
 
-    @OneToMany(mappedBy = "nutritionistModel", cascade = CascadeType.ALL)
-    @Transient
-    @JsonIgnoreProperties("nutritionistModel")
-    private List<DietModel> diets;
+    // @Transient
+    // @OneToMany(mappedBy = "nutritionistModel", cascade = CascadeType.ALL)
+    // @JsonIgnoreProperties("nutritionistModel")
+    // private List<DietModel> diets;
 
-    @OneToMany(mappedBy = "nutritionistModel", cascade = CascadeType.ALL)
-    @Transient
-    @JsonIgnoreProperties("nutritionistModel")
-    private List<DietGroupModel> dietGroup;
+    // @Transient
+    // @OneToMany(mappedBy = "nutritionistModel", cascade = CascadeType.ALL)
+    // @JsonIgnoreProperties("nutritionistModel")
+    // private List<DietGroupModel> dietGroup;
 
 }
