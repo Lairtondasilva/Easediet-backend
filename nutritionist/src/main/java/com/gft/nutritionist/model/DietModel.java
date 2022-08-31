@@ -33,5 +33,7 @@ public class DietModel {
 
     private double caloriesTotalAmount;
 
-    private List <FoodModel> food;
+    private List<FoodModel> food;
+
+    private NutritionistModel nutritionist;
 }

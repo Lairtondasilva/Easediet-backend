@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,9 +31,11 @@ import lombok.ToString;
 public class PatientModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "hibernate-uuid")
+    @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
+    @Column(name = "uuid", unique = true)
     @EqualsAndHashCode.Include
-    private UUID id;
+    private String UUID;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -64,11 +68,6 @@ public class PatientModel {
     @Column(name = "income_profile")
     private String incomeProfile;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @Transient
-    private DietModel diet;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @Transient
-    private DietGroupModel dietGroup;
+    @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
+    private UUID nutritionistId;
 }

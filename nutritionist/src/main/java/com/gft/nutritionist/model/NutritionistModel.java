@@ -61,10 +61,6 @@ public class NutritionistModel implements Serializable {
     @NotNull
     private String dietType;
 
-    // @Transient
-    // private List<DietModel> diets;
-
-    // @Transient
-    // private List<DietGroupModel> dietGroup;
-
+    @Transient
+    private PatientModel patient;
 }
