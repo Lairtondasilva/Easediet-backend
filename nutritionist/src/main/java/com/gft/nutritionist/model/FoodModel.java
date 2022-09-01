@@ -1,8 +1,5 @@
 package com.gft.nutritionist.model;
 
-import java.util.List;
-import java.util.UUID;
-
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -11,7 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,8 +15,6 @@ import lombok.ToString;
 @ToString
 @JsonNaming(SnakeCaseStrategy.class)
 public class FoodModel {
-    private UUID id;
-
     private double sugarG;
 
     private double fiberG;
@@ -46,5 +40,4 @@ public class FoodModel {
     private double carbohydratesTotalG;
 
     private double amount;
-
 }

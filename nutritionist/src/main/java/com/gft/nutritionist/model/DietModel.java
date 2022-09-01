@@ -1,7 +1,6 @@
 package com.gft.nutritionist.model;
 
 import java.util.List;
-import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,10 +13,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-
 public class DietModel {
 
-    private UUID id;
+    private String id;
+
+    private String name;
 
     private String breakfastLiquid;
     private String breakfastSolid;
@@ -33,7 +33,7 @@ public class DietModel {
 
     private double caloriesTotalAmount;
 
-    private List<FoodModel> food;
+    private List<FoodModel> foods;
 
-    private NutritionistModel nutritionist;
+    private String nutritionistId;
 }

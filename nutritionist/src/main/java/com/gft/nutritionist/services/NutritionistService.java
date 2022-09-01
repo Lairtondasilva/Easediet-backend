@@ -41,10 +41,10 @@ public class NutritionistService {
 
             // Se o email já existe e o ID é diferente, significa que passei o email de outro usuario já cadastrado
             if (findNutritionistEmail.isPresent() && findNutritionistEmail.get().getId() != nutritionist.getId()){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já cadastrado no banco de dados",null);
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user is already registered at the database!",null);
             }
 
-                nutritionist.setPassword(passwordEncryption(nutritionist.getPassword()));
+                //nutritionist.setPassword(passwordEncryption(nutritionist.getPassword()));
         }
         return Optional.of(nutritionistRepository.save(nutritionist));
     }
