@@ -2,10 +2,6 @@ package com.gft.nutritionist.service;
 
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.gft.nutritionist.model.DietGroupModel;
-import com.gft.nutritionist.model.DietModel;
+import com.gft.nutritionist.model.DietsGroupsModel;
 import com.gft.nutritionist.model.NutritionistModel;
 import com.gft.nutritionist.repository.NutritionistRepository;
 import com.gft.nutritionist.services.NutritionistService;

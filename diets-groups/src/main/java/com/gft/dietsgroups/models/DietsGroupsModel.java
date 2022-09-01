@@ -1,17 +1,14 @@
-package com.gft.nutritionist.model;
+package com.gft.dietsgroups.models;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,14 +16,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity
-@Table(name = "tb_nutritionist")
 @Data
+@ToString
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
-public class NutritionistModel {
+public class DietsGroupsModel {
+
     @Id
     @GeneratedValue(generator = "hibernate-uuid")
     @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
@@ -34,23 +31,26 @@ public class NutritionistModel {
     @EqualsAndHashCode.Include
     private String id;
 
-    @NotNull
+    @Column(nullable = false)
     private String name;
 
-    @NotNull
-    private String crnNumber;
+    private String description;
 
-    @NotNull(message = "O campo e-mail é obrigatório!")
-    @Email(message = "O campo Usuário deve ser um e-mail válido!")
-    private String email;
+    @Column(nullable = false)
+    private String ctrlParamName;
 
-    @NotNull
-    @Size(min = 8, max = 64)
-    private String password;
+    @Column(nullable = false)
+    private double ctrlParamMinVal;
+    @Column(nullable = false)
+    private double ctrlParamMaxVal;
 
-    @NotNull
-    private String dietType;
+    @Column(name = "nutritionist_id")
+    private String nutritionistId;
+
+    @Column(name = "diet_id")
+    private String dietId;
 
     @Transient
-    List<DietsGroupsModel> dietsGroups;
+    private List<PatientModel> patients;
+
 }

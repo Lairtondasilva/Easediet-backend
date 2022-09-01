@@ -1,28 +1,25 @@
 package com.gft.patient.controllers;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.patient.models.PatientModel;
-import com.gft.patient.repositories.PatientRepository;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("patient")
 public class PatientController {
 
-    @Autowired
-    private PatientRepository patientRepository;
-
-    @GetMapping("/nutritionist/{nutritionistId}")
-    public PatientModel findPatientByNutritionistId(@PathVariable String nutritionistId) {
-        return new PatientModel("01e7dc6a-2962-11ed-81a0-047d7bb283ba", "Maria Carla", "maria@gmail.com", "12345678",
-                Double.valueOf(1.69), Double.valueOf(63.5), 29, Double.valueOf(0.6), null,
-                null, null, null);
-
+    @GetMapping("/diets-groups/{dietsGroupsId}")
+    public List<PatientModel> getAllByGroupId(@PathVariable String dietsGroupsId) {
+        var patient1 = new PatientModel("3241324dasffd", "Carlos", "Carlos@gmail.com", "123497454",
+                Double.valueOf(1.75), Double.valueOf(63.5), 22, Double.valueOf(0.56), null, null, null, null, null);
+        var group = new ArrayList<PatientModel>();
+        group.add(patient1);
+        return group;
     }
 }
