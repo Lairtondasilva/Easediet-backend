@@ -17,6 +17,7 @@ import com.gft.nutritionist.model.DietGroupModel;
 import com.gft.nutritionist.model.DietModel;
 import com.gft.nutritionist.model.NutritionistModel;
 import com.gft.nutritionist.repository.NutritionistRepository;
+import com.gft.nutritionist.services.NutritionistService;
 
 @ExtendWith(MockitoExtension.class)
 public class NutritionistServiceTest {
@@ -28,7 +29,7 @@ public class NutritionistServiceTest {
     private NutritionistService nutritionistService;
 
     NutritionistModel nutritionistModelTest = new NutritionistModel("c81d4e2e-bcf2-11e6-869b-7df92533d2db",
-            "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy");
+            "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy", null);
 
     @Order(1)
     @Test

@@ -1,4 +1,4 @@
-package com.gft.nutritionist.service;
+package com.gft.nutritionist.services;
 
 import java.util.Optional;
 
@@ -17,9 +17,9 @@ public class NutritionistService {
     @Autowired
     private NutritionistRepository nutritionistRepository;
 
-    public ResponseEntity <NutritionistModel> registerNutritionist (NutritionistModel nutritionist){
+    public ResponseEntity<NutritionistModel> registerNutritionist(NutritionistModel nutritionist) {
         if (checkIfNutritionistExists(nutritionist.getEmail())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already registered e-mail!",null);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already registered e-mail!", null);
         }
 
         var nutritionistSaved = nutritionistRepository.save(nutritionist);
@@ -32,7 +32,7 @@ public class NutritionistService {
         if (nutritionistRepository.findByEmailContainingIgnoreCase(email).isPresent()) {
             return true;
         }
-            return false;
+        return false;
     }
     
     public Optional<NutritionistModel> updateNutritionist (NutritionistModel nutritionist) {
@@ -41,7 +41,7 @@ public class NutritionistService {
 
             // Se o email já existe e o ID é diferente, significa que passei o email de outro usuario já cadastrado
             if (findNutritionistEmail.isPresent() && findNutritionistEmail.get().getUUID() != nutritionist.getUUID()){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já cadastrado no banco de dados,null");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já cadastrado no banco de dados",null);
             }
 
                 nutritionist.setPassword(passwordEncryption(nutritionist.getPassword()));

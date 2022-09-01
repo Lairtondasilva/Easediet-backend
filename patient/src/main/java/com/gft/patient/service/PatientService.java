@@ -1,4 +1,4 @@
-package com.gft.service;
+package com.gft.patient.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -36,7 +36,7 @@ public class NutritionistRepositoryTest {
                 "111111",
                 "miriam.pacheco@nutri.com",
                 "12345678",
-                "Healthy");
+                "Healthy", null);
 
         nutritionistRepositoryTest.save(nutri1);
     }
