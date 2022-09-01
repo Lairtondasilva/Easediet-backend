@@ -59,5 +59,5 @@ public class NutritionistModel {
     private String dietType;
 
     @Transient
-    PatientModel patient;
+    List<DietsGroupsModel> dietsGroups;
 }

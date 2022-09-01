@@ -1,15 +1,16 @@
-package com.gft.nutritionist;
+package com.gft.dietsgroups;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-public class NutritionistApplication {
+public class DietsGroupsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NutritionistApplication.class, args);
+		SpringApplication.run(DietsGroupsApplication.class, args);
 	}
 
 }
