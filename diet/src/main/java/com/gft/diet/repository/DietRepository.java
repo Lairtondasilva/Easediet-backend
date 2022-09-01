@@ -12,5 +12,5 @@ public interface DietRepository extends JpaRepository<DietModel,String>{
     public List<DietModel> findByCaloriesTotalAmountGreaterThanEqual(double caloriesTotalAmount);
     public Optional <DietModel> findByNameContainingIgnoreCase(String name);
     public List <DietModel> findAllByNameContainingIgnoreCase(String name);
-    public List<DietModel> findByNutritionistId(String nutritionistId);
+    public List<DietModel> findAllByNutritionistId(String nutritionistId);
 }

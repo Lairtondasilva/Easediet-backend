@@ -12,5 +12,5 @@ import com.gft.nutritionist.model.DietsGroupsModel;
 public interface DietsGroupsService {
 
     @GetMapping(value = "/diets-groups/nutritionist/{nutritionistId}")
-    List<DietsGroupsModel> findByDietsGroupsByNutritionistId(@PathVariable("nutritionistId") String nutritionistId);
+    List<DietsGroupsModel> findDietsGroupsByNutritionistId(@PathVariable("nutritionistId") String nutritionistId);
 }

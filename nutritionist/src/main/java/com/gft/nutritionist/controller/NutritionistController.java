@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.nutritionist.model.NutritionistModel;
 import com.gft.nutritionist.repository.NutritionistRepository;
+import com.gft.nutritionist.services.DietService;
 import com.gft.nutritionist.services.DietsGroupsService;
-import com.gft.nutritionist.services.PatientService;
 
 @RestController
 @RequestMapping("/nutritionist")
@@ -17,10 +17,12 @@ public class NutritionistController {
 
     @Autowired
     private NutritionistRepository nutritionistRepository;
-    @Autowired
-    private PatientService patientService;
+
     @Autowired
     private DietsGroupsService dietsGroupsService;
+
+    @Autowired
+    private DietService dietService;
 
     @GetMapping
     public String all() {
@@ -31,9 +33,15 @@ public class NutritionistController {
     public NutritionistModel getNutritionistById(@PathVariable String nutritionistId) {
 
         var nutritionist = new NutritionistModel("2953aa5c-2969-11ed-b392-047d7bb283ba", "Ingrid", "1234-5",
-                "Ingrid@gmail.com", "12345678", "Healthy", null);
-        var groups = dietsGroupsService.findByDietsGroupsByNutritionistId(nutritionistId);
+                "Ingrid@gmail.com", "12345678", "Healthy", null, null);
+        
+        var groups = dietsGroupsService.findDietsGroupsByNutritionistId(nutritionistId);
         nutritionist.setDietsGroups(groups);
+
+        var diets = dietService.findDietByNutritionistId(nutritionistId);
+        nutritionist.setDiets(diets);
+
         return nutritionist;
+
     }
 }

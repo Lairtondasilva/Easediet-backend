@@ -61,7 +61,6 @@ public class DietModel {
     @Transient
     private List<FoodModel> foods;
 
-    @Transient
     private String nutritionistId;
 
     private String dietGroupId;
