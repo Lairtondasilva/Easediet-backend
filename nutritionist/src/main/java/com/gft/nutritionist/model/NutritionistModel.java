@@ -39,7 +39,7 @@ public class NutritionistModel {
     @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
     @Column(name = "uuid", unique = true)
     @EqualsAndHashCode.Include
-    private String UUID;
+    private String id;
 
     @NotNull
     private String name;
