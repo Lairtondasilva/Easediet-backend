@@ -3,9 +3,10 @@ package com.gft.nutritionist;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableEurekaClient
+@EnableFeignClients
 public class NutritionistApplication {
 
 	public static void main(String[] args) {

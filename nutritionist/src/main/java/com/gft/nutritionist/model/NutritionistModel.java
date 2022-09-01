@@ -33,10 +33,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class NutritionistModel implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class NutritionistModel {
     @Id
     @GeneratedValue(generator = "hibernate-uuid")
     @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
@@ -62,5 +59,5 @@ public class NutritionistModel implements Serializable {
     private String dietType;
 
     @Transient
-    private PatientModel patient;
+    PatientModel patient;
 }

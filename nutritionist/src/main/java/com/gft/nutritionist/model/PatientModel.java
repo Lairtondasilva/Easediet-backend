@@ -1,14 +1,26 @@
 package com.gft.nutritionist.model;
 
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 public class PatientModel {
 
-    private UUID UUID;
+    @EqualsAndHashCode.Include
+    private String id;
 
     private String name;
 
     private String email;
+
+    private String password;
 
     private Double height;
 
@@ -20,9 +32,9 @@ public class PatientModel {
 
     private String alergyOrIntolerance;
 
-    private String licenceType;
+    private String licenseType;
 
     private String incomeProfile;
 
-    private UUID nutritionistId;
+    private String nutritionistId;
 }

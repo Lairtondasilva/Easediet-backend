@@ -35,7 +35,7 @@ public class PatientModel {
     @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
     @Column(name = "uuid", unique = true)
     @EqualsAndHashCode.Include
-    private String UUID;
+    private String id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -62,12 +62,11 @@ public class PatientModel {
     @Column(name = "alergy_intolerance")
     private String alergyOrIntolerance;
 
-    @Column(name = "licence_type")
-    private String licenceType;
+    @Column(name = "license_type")
+    private String licenseType;
 
     @Column(name = "income_profile")
     private String incomeProfile;
 
-    @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
-    private UUID nutritionistId;
+    private String nutritionistId;
 }
