@@ -73,5 +73,5 @@ public class PatientModel {
     private String incomeProfile;
 
     @Column(name = "group_id")
-    private String groupId;
+    private UUID groupId;
 }

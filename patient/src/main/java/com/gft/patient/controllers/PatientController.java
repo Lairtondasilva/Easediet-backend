@@ -33,7 +33,9 @@ public class PatientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PatientModel> getById(@PathVariable UUID id) {
-        return patientService.getPatientById(id);
+        // return patientService.getPatientById(id);
+        return ResponseEntity.ok(new PatientModel(UUID.fromString("30e53eea-763d-4aa1-8fe1-738fa2d31c2e"), "Andrei",
+                "Andrei@gmail.com", "dfaskjfasd", null, null, 24, null, null, "dfasdf", null, UUID.randomUUID()));
     }
 
     @GetMapping("/diets-groups/{dietsGroupsId}")
