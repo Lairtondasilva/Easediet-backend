@@ -1,5 +1,7 @@
 package com.gft.diet.model;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,7 +14,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 public class PatientModel {
-    private String id;
+    private UUID id;
 
     private String name;
 

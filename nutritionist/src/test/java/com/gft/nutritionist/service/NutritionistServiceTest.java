@@ -2,6 +2,8 @@ package com.gft.nutritionist.service;
 
 import static org.mockito.Mockito.when;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,8 +25,8 @@ public class NutritionistServiceTest {
     @InjectMocks
     private NutritionistService nutritionistService;
 
-    NutritionistModel nutritionistModelTest = new NutritionistModel("c81d4e2e-bcf2-11e6-869b-7df92533d2db",
-            "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy", null,null);
+    NutritionistModel nutritionistModelTest = new NutritionistModel(UUID.randomUUID(),
+            "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy", null, null);
 
     @Order(1)
     @Test
