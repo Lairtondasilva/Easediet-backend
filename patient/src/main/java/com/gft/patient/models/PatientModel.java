@@ -8,12 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,29 +29,35 @@ import lombok.ToString;
 public class PatientModel {
 
     @Id
-    @GeneratedValue(generator = "hibernate-uuid")
-    @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
-    @Column(name = "uuid", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
-    private String id;
+    private UUID id;
 
     @Column(name = "name", nullable = false)
+    @NotNull
+    @NotBlank
     private String name;
 
     @Column(name = "email", nullable = false)
+    @NotBlank
+    @NotNull
     private String email;
 
     @Column(name = "password", nullable = false)
     @Size(min = 8, max = 64)
+    @NotBlank
     private String password;
 
     @Column(name = "height", nullable = false)
+    @NotNull
     private Double height;
 
-    @Column(name = "muscle_mass")
+    @Column(name = "muscle_mass", nullable = false)
+    @NotNull
     private Double muscleMass;
 
-    @Column(name = "age")
+    @Column(name = "age", nullable = false)
+    @NotNull
     private Integer age;
 
     @Column(name = "active_rate")
@@ -68,7 +72,6 @@ public class PatientModel {
     @Column(name = "income_profile")
     private String incomeProfile;
 
-    private String nutritionistId;
-
+    @Column(name = "group_id")
     private String groupId;
 }

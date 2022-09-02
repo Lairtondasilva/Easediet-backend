@@ -1,6 +1,7 @@
 package com.gft.nutritionist.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class DietModel {
 
-    private String id;
+    private UUID id;
 
     private String name;
 

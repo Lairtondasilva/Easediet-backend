@@ -1,5 +1,7 @@
 package com.gft.dietsgroups.models;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,7 +16,7 @@ import lombok.ToString;
 public class PatientModel {
 
     @EqualsAndHashCode.Include
-    private String id;
+    private UUID id;
 
     private String name;
 
@@ -35,8 +37,6 @@ public class PatientModel {
     private String licenseType;
 
     private String incomeProfile;
-
-    private String nutritionistId;
 
     private String groupId;
 }

@@ -2,6 +2,7 @@ package com.gft.dietsgroups.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class DietsGroupsController {
 
     @GetMapping("/{dietsGroupsId}")
     public DietsGroupsModel findById(@PathVariable String dietsGroupsId) {
-        var group = new DietsGroupsModel("fdsajf", "dfsasdf", "dfasfa", "dfdas", Double.valueOf(100),
+        var group = new DietsGroupsModel(UUID.randomUUID(), "dfsasdf", "dfasfa", "dfdas", Double.valueOf(100),
                 Double.valueOf(200), "fdasfjdsa", "dasfjdlfads", null);
         group.setPatients(patientService.findPatientByDietsGroupsId(dietsGroupsId));
         return group;
@@ -33,9 +34,9 @@ public class DietsGroupsController {
 
     @GetMapping("/nutritionist/{nutritionistId}")
     public List<DietsGroupsModel> getDietsGroupsByNutritionistId(@PathVariable String nutritionistId) {
-        var group1 = new DietsGroupsModel("9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        var group1 = new DietsGroupsModel(UUID.randomUUID(),
                 "diabetics", "", "sugar", Double.valueOf(0), Double.valueOf(20), "", "dfafdkas", null);
-        var group2 = new DietsGroupsModel("9b1deb4d-3b7d-4bad-7bdd-2b0d7b3dcb6d",
+        var group2 = new DietsGroupsModel(UUID.randomUUID(),
                 "diabetics", "", "sugar", Double.valueOf(0), Double.valueOf(20), "", "dfsaf", null);
         var groups = new ArrayList<DietsGroupsModel>();
         groups.add(group1);

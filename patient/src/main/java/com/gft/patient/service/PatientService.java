@@ -1,5 +1,10 @@
 package com.gft.patient.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,8 +16,10 @@ import com.gft.patient.repositories.PatientRepository;
 @Service
 public class PatientService {
 
+    @Autowired
     private PatientRepository patientRepository;
 
+    // registers a patient
     public ResponseEntity<PatientModel> registerPatient(PatientModel patient) {
         if (checkIfPatientExists(patient.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already registered", null);
@@ -20,6 +27,41 @@ public class PatientService {
         var patientSaved = patientRepository.save(patient);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(patientSaved);
+    }
+
+    // updates a patient
+    public ResponseEntity<PatientModel> updatePatient(PatientModel patient) {
+        if (patientRepository.findById(patient.getId()).isPresent()) {
+            var databasePatient = patientRepository.findByEmailContainingIgnoreCase(patient.getEmail());
+            if (databasePatient.isEmpty() && databasePatient.get().getId() != patient.getId()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This email is already in use", null);
+            }
+            return ResponseEntity.ok(patientRepository.save(patient));
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found in database", null);
+    }
+
+    // returns all patients
+    public ResponseEntity<List<PatientModel>> getAllPatients() {
+        return ResponseEntity.ok(patientRepository.findAll());
+    }
+
+    // returns patient by id
+    public ResponseEntity<PatientModel> getPatientById(UUID id) {
+        Optional<PatientModel> patient = patientRepository.findById(id);
+        if (patient.isPresent()) {
+            return ResponseEntity.ok(patient.get());
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found in database", null);
+    }
+
+    // deletes a patient
+    public void delete(UUID id) {
+        patientRepository.deleteById(id);
+    }
+
+    public ResponseEntity<List<PatientModel>> getAllPatientsByGroupId(UUID id) {
+        return ResponseEntity.ok(patientRepository.findAllByGroupId(id));
     }
 
     public boolean checkIfPatientExists(String email) {

@@ -1,5 +1,6 @@
 package com.gft.nutritionist.model;
 
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class DietGroupModel {
-    private String id;
+    private UUID id;
     private String name;
     private String description;
     private String ctrlParamName;

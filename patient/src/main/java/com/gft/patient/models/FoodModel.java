@@ -22,7 +22,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonNaming(SnakeCaseStrategy.class)
 public class FoodModel {
-    @JoinColumn
+
     @EqualsAndHashCode.Include
     private UUID id;
 
