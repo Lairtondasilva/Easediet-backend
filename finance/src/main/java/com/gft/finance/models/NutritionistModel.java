@@ -1,4 +1,4 @@
-package com.gft.diet.model;
+package com.gft.finance.models;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,48 +22,26 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity
-@Table(name = "tb_diet")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class DietModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Include
+public class NutritionistModel {
+
     private UUID id;
 
     private String name;
 
-    @NotNull
-    private String breakfastLiquid;
+    private String crnNumber;
 
-    private String breakfastSolid;
+    private String email;
 
-    private String breakfastFruit;
+    private String password;
 
-    @NotNull
-    private String lunchSideDish;
+    private String dietType;
 
-    private String lunchProtein;
+    List<DietsGroupsModel> dietsGroups;
 
-    private String lunchSalad;
-
-    @NotNull
-    private String dinnerSideDish;
-
-    private String dinnerProtein;
-
-    private String dinnerSalad;
-
-    private double caloriesTotalAmount;
-
-    @Transient
-    private List<FoodModel> foods;
-
-    private UUID nutritionistId;
-
-    private UUID dietGroupId;
+    List<DietModel> diets;
 }

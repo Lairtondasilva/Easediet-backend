@@ -1,0 +1,31 @@
+server:
+  port: 8084
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/eureka
+    instance:
+      preferIpAddress: true
+    registerWithEureka: true
+    fetchRegister: true
+    
+spring:
+  application:
+    name: diets-groups-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_nutrition?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  flyway:
+    url: jdbc:mysql://localhost:3306
+    schemas: tb_diet_group
+    user: root
+    password: root 

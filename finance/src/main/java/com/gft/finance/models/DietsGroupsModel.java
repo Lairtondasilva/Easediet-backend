@@ -1,4 +1,4 @@
-package com.gft.nutritionist.model;
+package com.gft.finance.models;
 
 import java.util.List;
 import java.util.UUID;
