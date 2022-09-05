@@ -36,5 +36,5 @@ public class DietModel {
 
     private List<FoodModel> foods;
 
-    private String nutritionistId;
+    private UUID nutritionistId;
 }

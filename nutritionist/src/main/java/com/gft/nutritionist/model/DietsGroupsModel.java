@@ -29,9 +29,9 @@ public class DietsGroupsModel {
 
     private double ctrlParamMaxVal;
 
-    private String nutritionistId;
+    private UUID nutritionistId;
 
-    private String dietId;
+    private UUID dietId;
 
     private List<PatientModel> patients;
 }

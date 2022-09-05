@@ -38,5 +38,5 @@ public class PatientModel {
 
     private String incomeProfile;
 
-    private String groupId;
+    private UUID groupId;
 }

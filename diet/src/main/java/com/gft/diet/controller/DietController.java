@@ -20,7 +20,7 @@ public class DietController {
         var nutritionistDietList = new ArrayList<DietModel>();
         DietModel diet1 = new DietModel(UUID.randomUUID(), "Growth01", "Café,Leite", "null", "null", "aaa", "null",
                 "null", "aaa",
-                "null", "null", 0.4, null, "null", "null");
+                "null", "null", 0.4, null, UUID.randomUUID(), UUID.randomUUID());
 
         nutritionistDietList.add(diet1);
 

@@ -36,5 +36,5 @@ public class PatientModel {
 
     private String incomeProfile;
 
-    private String nutritionistId;
+    private UUID nutritionistId;
 }
