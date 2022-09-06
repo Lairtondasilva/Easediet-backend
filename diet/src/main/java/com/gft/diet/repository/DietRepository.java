@@ -18,4 +18,6 @@ public interface DietRepository extends JpaRepository<DietModel, UUID> {
     public List<DietModel> findAllByNameContainingIgnoreCase(String name);
 
     public List<DietModel> findAllByNutritionistId(UUID nutritionistId);
+
+    public Optional<DietModel> findByDietGroupId(UUID dietGroupId);
 }

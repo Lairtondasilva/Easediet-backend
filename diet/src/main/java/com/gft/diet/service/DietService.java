@@ -31,7 +31,7 @@ public class DietService {
         return ResponseEntity.status(HttpStatus.CREATED).body(dietSaved);
     }
 
-    public Optional<DietModel> dietUpdate (DietModel diet){
+    public Optional<DietModel> updateDiet (DietModel diet){
         if (dietRepository.findById(diet.getId()).isPresent()){
             List <DietModel> sameNameDiets = dietRepository.findAllByNameContainingIgnoreCase(diet.getName());
 
