@@ -1,6 +1,7 @@
 package com.gft.finance.dtos;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public class PatientPaymentResponse {
     private String nutritionistName;
     private BigDecimal billValue;
     private String referenceMonth;
-    private Date paymentDueDate;
-    private Date paymentOrderDate;
+    private LocalDate paymentDueDate;
+    private LocalDate paymentOrderDate;
     private String status;
 }

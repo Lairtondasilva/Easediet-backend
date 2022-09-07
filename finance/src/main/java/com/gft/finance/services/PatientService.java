@@ -1,5 +1,6 @@
 package com.gft.finance.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,4 +15,7 @@ public interface PatientService {
 
     @GetMapping("/patient/{id}")
     public PatientModel getPatientById(@PathVariable UUID id);
+
+    @GetMapping("/patient/all")
+    public List<PatientModel> getAllPatients();
 }

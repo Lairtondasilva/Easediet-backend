@@ -1,6 +1,7 @@
 package com.gft.finance.models;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ public class PaymentModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
     private UUID id;
 
     private UUID patientId;
@@ -38,9 +40,9 @@ public class PaymentModel {
 
     private String referenceMonth;
 
-    private Date paymentDueDate;
+    private LocalDate paymentDueDate;
 
-    private Date paymentOrderDate;
+    private LocalDate paymentOrderDate;
 
     private Boolean isPaid;
 }
