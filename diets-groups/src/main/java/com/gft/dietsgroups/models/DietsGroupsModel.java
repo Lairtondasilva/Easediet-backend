@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -24,6 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "tb_diet_group")
 public class DietsGroupsModel {
 
     @Id
@@ -45,10 +47,10 @@ public class DietsGroupsModel {
     private double ctrlParamMaxVal;
 
     @Column(name = "nutritionist_id")
-    private String nutritionistId;
+    private UUID nutritionistId;
 
     @Column(name = "diet_id")
-    private String dietId;
+    private UUID dietId;
 
     @Transient
     private List<PatientModel> patients;

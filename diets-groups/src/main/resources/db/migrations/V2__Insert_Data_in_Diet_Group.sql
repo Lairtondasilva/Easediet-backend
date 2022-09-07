@@ -1,3 +1,0 @@
-INSERT INTO `tb_diet_group` (`id`,`ctrl_param_max_val`,`ctrl_param_min_val`,`description`,`diet_id`,`name`,`nutritionist_id`) VALUES
-('da59317e-5ffc-466b-921a-22aae489b746',100.2,20.2,'Grupo para diabéticos','18ee402a-742d-43c4-bbb2-4459819bd0c6','Diabéticos','1a07be34-4a55-494b-a68d-dddcc40944e2'),
-('a753a1b4-27d8-455e-80af-b23f0e4f0ca2',120.2,10.2,'Grupo para hipertensos','fb7b5541-1cab-4b4b-8ec2-1931f357a07c','hipertensos','89ba103c-989d-4d9b-a113-d37026fb5f22');

@@ -1,5 +1,8 @@
 package com.gft.patient.models;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -8,10 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -72,6 +78,18 @@ public class PatientModel {
     @Column(name = "income_profile")
     private String incomeProfile;
 
+    @Column(name = "registration_date")
+    @CreationTimestamp
+    private LocalDate registrationDate;
+
+    @Column(name = "diet_id")
+    private UUID dietId;
+
     @Column(name = "group_id")
     private UUID groupId;
+
+    @PrePersist
+    public void prePersist() {
+        this.id = UUID.randomUUID();
+    }
 }

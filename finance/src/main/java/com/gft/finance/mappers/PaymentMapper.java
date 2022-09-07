@@ -18,10 +18,6 @@ public class PaymentMapper {
     @Autowired
     private NutritionistService nutritionistService;
 
-    /**
-     * @param payment
-     * @return
-     */
     public PatientPaymentResponse toPatientPaymentResponse(PaymentModel payment) {
         return PatientPaymentResponse.builder()
                 .id(payment.getId())

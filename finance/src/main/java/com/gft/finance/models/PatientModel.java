@@ -1,5 +1,7 @@
 package com.gft.finance.models;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +39,10 @@ public class PatientModel {
     private String licenseType;
 
     private String incomeProfile;
+
+    private LocalDate registrationDate;
+
+    private UUID dietId;
 
     private UUID groupId;
 }
