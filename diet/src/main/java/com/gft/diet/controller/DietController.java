@@ -1,5 +1,6 @@
 package com.gft.diet.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gft.diet.model.DietModel;
 import com.gft.diet.repository.DietRepository;
 import com.gft.diet.service.DietService;
+import com.gft.diet.service.FoodService;
 
 @RestController
 @RequestMapping("/diets")
@@ -32,6 +34,14 @@ public class DietController {
 
     @Autowired
     private DietService dietService;
+
+    @Autowired
+    private FoodService foodService;
+
+    @GetMapping
+    public void test() throws IOException, InterruptedException {
+        foodService.getFood();
+    }
 
     @GetMapping("/{dietId}")
     public ResponseEntity<DietModel> getDietById(@PathVariable UUID dietId) {
