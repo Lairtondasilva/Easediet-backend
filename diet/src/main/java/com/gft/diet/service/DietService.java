@@ -1,5 +1,10 @@
 package com.gft.diet.service;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +50,20 @@ public class DietService {
             }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Diet not found at the database!");
+    }
+
+    public String translateText(String sourceText) throws IOException, InterruptedException{
+        HttpRequest request = HttpRequest.newBuilder()
+		.uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
+		.header("content-type", "application/x-www-form-urlencoded")
+		.header("Accept-Encoding", "application/gzip")
+		.header("X-RapidAPI-Key", "13ff71b540msh2b4d7f91e9b5ff4p15c0edjsne5ec396397c1")
+		.header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
+		.method("POST", HttpRequest.BodyPublishers.ofString(sourceText))
+		.build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        
+        return response.body();
+
     }
 }

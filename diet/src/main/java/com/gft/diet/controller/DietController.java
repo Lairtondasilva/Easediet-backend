@@ -1,5 +1,7 @@
 package com.gft.diet.controller;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +49,11 @@ public class DietController {
     public ResponseEntity<DietModel> getDietOfDietGroupById(@PathVariable UUID dietGroupId) {
         return dietRepository.findByDietGroupId(dietGroupId).map(diet ->ResponseEntity.ok(diet)).orElse(ResponseEntity.notFound().build());
     }
+
+    @PostMapping("/{sourceText}")
+    public String postTranslation(@PathVariable String sourceText) throws IOException, InterruptedException{
+        return dietService.translateText(sourceText);
+    } 
 
     @PostMapping
     public ResponseEntity <DietModel> dietRegister (@Valid @RequestBody DietModel diet){
