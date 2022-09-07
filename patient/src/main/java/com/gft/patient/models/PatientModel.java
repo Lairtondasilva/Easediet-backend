@@ -69,7 +69,7 @@ public class PatientModel {
     @Column(name = "active_rate")
     private Double activeRate;
 
-    @Column(name = "alergy_intolerance")
+    @Column(name = "alergy_or_intolerance")
     private String alergyOrIntolerance;
 
     @Column(name = "license_type")

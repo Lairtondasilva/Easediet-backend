@@ -11,6 +11,7 @@ import java.util.Formatter.BigDecimalLayoutForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.xml.PluggableSchemaResolver;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,14 +62,15 @@ public class PaymentController {
 
     @PostMapping
     public List<PaymentModel> createBills() {
-        var currentDate = LocalDate.now();
+        var currentDate = LocalDate.of(2022, 10, 07);
+        // var currentDate = LocalDate.now();
         var patients = patientService.getAllPatients();
         var bills = paymentRepository.findAll();
         List generatedBills = new ArrayList<PaymentModel>();
 
         try {
             patients.forEach(patient -> {
-                if (patient.getRegistrationDate().getMonthValue() == currentDate.getMonthValue() && bills.size() > 0) {
+                if (patient.getRegistrationDate().getMonthValue() == currentDate.getMonthValue() && bills.size() == 0) {
                     bills.forEach(bill -> {
                         if (!bill.getPatientId().equals(patient.getId())) {
                             var payment = new PaymentModel(UUID.randomUUID(), patient.getId(), null,
@@ -83,19 +85,6 @@ public class PaymentController {
                             generatedBills.add(paymentRepository.save(payment));
                         }
                     });
-                } else if (patient.getRegistrationDate().getMonth() == currentDate.getMonth() && bills.size() == 0) {
-                    var time = new Date();
-
-                    var payment = new PaymentModel(UUID.randomUUID(), patient.getId(), null,
-                            BigDecimal.valueOf(19.90),
-                            paymentService.convertMonth(currentDate.getMonthValue()),
-                            LocalDate.of(
-                                    (currentDate.getMonthValue() == 12) ? currentDate.getYear() + 1
-                                            : currentDate.getYear(),
-                                    (currentDate.getMonthValue() == 12) ? 1 : currentDate.getMonthValue() + 1,
-                                    currentDate.getDayOfMonth()),
-                            null, false);
-                    generatedBills.add(paymentRepository.save(payment));
                 }
                 List<PaymentModel> patientBills = paymentRepository.findAllByPatientId(patient.getId());
                 patientBills.forEach(bill -> {
@@ -119,6 +108,11 @@ public class PaymentController {
 
         }
         return generatedBills;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePayment(@PathVariable UUID id) {
+        paymentRepository.deleteById(id);
     }
 
 }

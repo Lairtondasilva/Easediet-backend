@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.diet.model.DietModel;
 import com.gft.diet.repository.DietRepository;
 
+@Service
 public class DietService {
     
     @Autowired
@@ -31,7 +33,7 @@ public class DietService {
         return ResponseEntity.status(HttpStatus.CREATED).body(dietSaved);
     }
 
-    public Optional<DietModel> dietUpdate (DietModel diet){
+    public Optional<DietModel> updateDiet (DietModel diet){
         if (dietRepository.findById(diet.getId()).isPresent()){
             List <DietModel> sameNameDiets = dietRepository.findAllByNameContainingIgnoreCase(diet.getName());
 
