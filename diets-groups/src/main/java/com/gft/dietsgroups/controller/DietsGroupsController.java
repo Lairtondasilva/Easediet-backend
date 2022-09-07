@@ -24,10 +24,15 @@ public class DietsGroupsController {
     @Autowired(required = true)
     private PatientService patientService;
 
+    @GetMapping("/all")
+    public List<DietsGroupsModel> all() {
+        return dietsGroupsRepository.findAll();
+    }
+
     @GetMapping("/{dietsGroupsId}")
     public DietsGroupsModel findById(@PathVariable String dietsGroupsId) {
         var group = new DietsGroupsModel(UUID.randomUUID(), "dfsasdf", "dfasfa", "dfdas", Double.valueOf(100),
-                Double.valueOf(200), "fdasfjdsa", "dasfjdlfads", null);
+                Double.valueOf(200), UUID.randomUUID(), UUID.randomUUID(), null);
         group.setPatients(patientService.findPatientByDietsGroupsId(dietsGroupsId));
         return group;
     }
@@ -35,9 +40,11 @@ public class DietsGroupsController {
     @GetMapping("/nutritionist/{nutritionistId}")
     public List<DietsGroupsModel> getDietsGroupsByNutritionistId(@PathVariable String nutritionistId) {
         var group1 = new DietsGroupsModel(UUID.randomUUID(),
-                "diabetics", "", "sugar", Double.valueOf(0), Double.valueOf(20), "", "dfafdkas", null);
+                "diabetics", "", "sugar", Double.valueOf(0), Double.valueOf(20), UUID.randomUUID(), UUID.randomUUID(),
+                null);
         var group2 = new DietsGroupsModel(UUID.randomUUID(),
-                "diabetics", "", "sugar", Double.valueOf(0), Double.valueOf(20), "", "dfsaf", null);
+                "diabetics", "", "sugar", Double.valueOf(0), Double.valueOf(20), UUID.randomUUID(), UUID.randomUUID(),
+                null);
         var groups = new ArrayList<DietsGroupsModel>();
         groups.add(group1);
         groups.add(group2);

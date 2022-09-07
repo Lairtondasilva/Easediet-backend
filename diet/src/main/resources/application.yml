@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8083
 
 eureka:
   client:
@@ -8,11 +8,11 @@ eureka:
     instance:
       preferIpAddress: true
     registerWithEureka: true
-    fetchRegister: true
-
+    fetchRegister: 
+    
 spring:
   application:
-    name: diets-groups-service
+    name: diet-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/db_nutrition?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo&useSSl=false
@@ -21,6 +21,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    database: mysql
     show-sql: true
     properties:
       hibernate:
@@ -30,13 +31,9 @@ spring:
     time-zone: Brazil/East
     serialization:
       FAIL_ON_EMPTY_BEANS: false
-      
+
   # flyway:
   #   url: jdbc:mysql://localhost:3306
   #   schemas: db_nutrition
   #   user: root
   #   password: root 
-
-
-
-    

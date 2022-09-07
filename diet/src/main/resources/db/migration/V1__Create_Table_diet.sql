@@ -1,0 +1,15 @@
+CREATE TABLE `tb_diet` 
+(`id` binary(255) not null, 
+`breakfast_fruit` varchar(255), 
+`breakfast_liquid` varchar(255) not null, 
+`breakfast_solid` varchar(255),
+`calories_total_amount` double precision not null, 
+`diet_group_id` binary(255), 
+`dinner_protein` varchar(255), 
+`dinner_salad` varchar(255), 
+`dinner_side_dish` varchar(255) not null,
+`lunch_protein` varchar(255), 
+`lunch_salad` varchar(255), 
+`lunch_side_dish` varchar(255) not null, 
+`name` varchar(255), 
+`nutritionist_id` binary(255), primary key (id)) ENGINE=InnoDB DEFAULT CHARSET=latin1;
