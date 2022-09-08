@@ -50,9 +50,9 @@ public class DietController {
         return dietRepository.findByDietGroupId(dietGroupId).map(diet ->ResponseEntity.ok(diet)).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/{sourceText}")
-    public String postTranslation(@PathVariable String sourceText) throws IOException, InterruptedException{
-        return dietService.translateText(sourceText);
+    @PostMapping("/{sourceLang}/{targetLang}")
+    public String postTranslation(@PathVariable String sourceLang, @PathVariable String targetLang, @RequestBody String sourceText) throws IOException, InterruptedException{
+        return dietService.translateText(sourceLang,targetLang,sourceText);
     } 
 
     @PostMapping
