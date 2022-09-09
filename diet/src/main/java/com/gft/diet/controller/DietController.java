@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gft.diet.model.DietModel;
 import com.gft.diet.repository.DietRepository;
 import com.gft.diet.service.DietService;
+import com.gft.diet.service.TranslateService;
+import com.gft.diet.translation.RespDat;
+import com.gft.diet.translation.RespText;
 
 @RestController
 @RequestMapping("/diets")
@@ -34,6 +37,7 @@ public class DietController {
 
     @Autowired
     private DietService dietService;
+
 
     @GetMapping("/{dietId}")
     public ResponseEntity<DietModel> getDietById (@PathVariable UUID dietId){
@@ -50,14 +54,9 @@ public class DietController {
         return dietRepository.findByDietGroupId(dietGroupId).map(diet ->ResponseEntity.ok(diet)).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/{sourceLang}/{targetLang}")
-    public String postTranslation(@PathVariable String sourceLang, @PathVariable String targetLang, @RequestBody String sourceText) throws IOException, InterruptedException{
-        return dietService.translateText(sourceLang,targetLang,sourceText);
-    } 
-
     @PostMapping
     public ResponseEntity <DietModel> dietRegister (@Valid @RequestBody DietModel diet){
-        return ResponseEntity.status(HttpStatus.CREATED).body(dietRepository.save(diet));
+        return dietService.registerDiet(diet);
     }
 
     @PutMapping

@@ -24,7 +24,7 @@ public class FoodModel {
 
     private double sodiumMg;
 
-    private double name;
+    private String name;
 
     private double potassiumMg;
 
