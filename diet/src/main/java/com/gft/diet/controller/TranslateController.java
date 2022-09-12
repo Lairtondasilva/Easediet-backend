@@ -24,8 +24,7 @@ public class TranslateController {
     private TranslateService translateService;
 
     @PostMapping("/{sourceLang}/{targetLang}")
-    public List<RespText> postTranslation(@PathVariable String sourceLang, @PathVariable String targetLang, @RequestBody DietModel diet) throws IOException, InterruptedException{
+    public RespText postTranslation(@PathVariable String sourceLang, @PathVariable String targetLang, @RequestBody DietModel diet) throws IOException, InterruptedException{
         return translateService.translate(sourceLang,targetLang,translateService.generateSourceText(diet));
-        //Enviar dados traduzidos para a API CalorieNinjas
     } 
 }

@@ -21,20 +21,20 @@ import com.google.gson.GsonBuilder;
 @Service
 public class TranslateService {
 
-    public List<RespText> translate(String sourceLang, String targetLang, String sourceText) throws IOException, InterruptedException{
+    public RespText translate(String sourceLang, String targetLang, String sourceText) throws IOException, InterruptedException{
         String sourceExpression="q=%s&target=%s&source=%s";
         HttpRequest request = HttpRequest.newBuilder()
 		.uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
 		.header("content-type", "application/x-www-form-urlencoded")
 		.header("Accept-Encoding", "application/gzip")
-		.header("X-RapidAPI-Key", "726259cd3fmsh1e1ed177343ea95p111e5cjsnb179dcc931c1")
+		.header("X-RapidAPI-Key", "SIGN-UP FOR KEY")
 		.header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
 		.method("POST", HttpRequest.BodyPublishers.ofString(String.format(sourceExpression,sourceText,targetLang,sourceLang)))
 		.build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         RespDat resp = gson.fromJson(response.body(), RespDat.class);
-        List<RespText> translatedResponse = resp.getData().getTranslations();
+        RespText translatedResponse = resp.getData().getTranslations().get(0);
 
         return translatedResponse;
     }
@@ -55,7 +55,6 @@ public class TranslateService {
         translateDietDTO.setDinnerProtein(diet.getDinnerProtein());
         translateDietDTO.setDinnerSalad(diet.getDinnerSalad());
 
-    
         Stream<String> translateDietDTOStream = Stream.of(
             translateDietDTO.getBreakfastLiquid(),
             translateDietDTO.getBreakfastSolid(),
@@ -72,8 +71,5 @@ public class TranslateService {
         String sourceText = String.join(",", translateDietDTOStringList);
 
         return sourceText;
-    }
-    public String saveTranslatedDTO (String translatedText){
-        return translatedText;
     }
 }
