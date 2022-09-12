@@ -1,6 +1,7 @@
 package com.gft.dietsgroups.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,5 @@ import com.gft.dietsgroups.models.PatientModel;
 public interface PatientService {
 
     @GetMapping(value = "/patient/diets-groups/{dietsGroupsId}")
-    List<PatientModel> findPatientByDietsGroupsId(@PathVariable String dietsGroupsId);
+    List<PatientModel> findPatientByDietsGroupsId(@PathVariable UUID dietsGroupsId);
 }

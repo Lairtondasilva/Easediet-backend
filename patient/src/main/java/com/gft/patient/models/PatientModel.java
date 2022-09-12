@@ -88,8 +88,4 @@ public class PatientModel {
     @Column(name = "group_id")
     private UUID groupId;
 
-    @PrePersist
-    public void prePersist() {
-        this.id = UUID.randomUUID();
-    }
 }

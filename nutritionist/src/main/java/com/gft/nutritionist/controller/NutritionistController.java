@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.nutritionist.model.NutritionistModel;
 import com.gft.nutritionist.repository.NutritionistRepository;
+import com.gft.nutritionist.services.DietGroupService;
 import com.gft.nutritionist.services.DietService;
-import com.gft.nutritionist.services.DietsGroupsService;
 import com.gft.nutritionist.services.NutritionistService;
 
 
@@ -38,7 +38,7 @@ public class NutritionistController {
     private NutritionistRepository nutritionistRepository;
 
     @Autowired
-    private DietsGroupsService dietsGroupsService;
+    private DietGroupService dietGroupService;
 
     @Autowired
     private DietService dietService;
@@ -63,7 +63,11 @@ public class NutritionistController {
         
         // return nutritionist;
 
-        return nutritionistRepository.findById(nutritionistId).map(nutri -> ResponseEntity.ok(nutri)).orElse(ResponseEntity.notFound().build());
+        return nutritionistRepository.findById(nutritionistId).map(nutri -> {
+        	var groups = dietGroupService.findDietsGroupsByNutritionistId(nutri.getId());
+        	nutri.setDietGroups(groups);
+        	return ResponseEntity.ok(nutri);
+        	}).orElse(ResponseEntity.notFound().build());
 
     }
 

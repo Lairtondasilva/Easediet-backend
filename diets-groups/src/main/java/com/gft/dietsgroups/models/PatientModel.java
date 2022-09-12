@@ -1,5 +1,8 @@
 package com.gft.dietsgroups.models;
 
+
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -38,5 +41,9 @@ public class PatientModel {
 
     private String incomeProfile;
 
-    private String groupId;
+    private LocalDate registrationDate;
+
+    private UUID dietId;
+
+    private UUID groupId;
 }

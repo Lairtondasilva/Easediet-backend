@@ -20,8 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import com.gft.nutritionist.model.NutritionistModel;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NutritionistRepositoryTest {
 
     @Autowired

@@ -1,6 +1,7 @@
 package com.gft.diet.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.diet.model.DietModel;
+import com.gft.diet.model.FoodList;
+import com.gft.diet.model.FoodModel;
 import com.gft.diet.repository.DietRepository;
 import com.gft.diet.service.DietService;
 import com.gft.diet.service.FoodService;
@@ -38,9 +41,10 @@ public class DietController {
     @Autowired
     private FoodService foodService;
 
-    @GetMapping
-    public void test() throws IOException, InterruptedException {
-        foodService.getFood();
+
+    @PostMapping("/foods")
+    public FoodList getFoodList(@RequestBody List<String> foods) throws IOException, InterruptedException {
+        return foodService.getFood(foods);
     }
 
     @GetMapping("/{dietId}")

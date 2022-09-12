@@ -1,5 +1,8 @@
 package com.gft.diet.model;
 
+
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +17,8 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 public class PatientModel {
+
+    @EqualsAndHashCode.Include
     private UUID id;
 
     private String name;
@@ -36,5 +41,9 @@ public class PatientModel {
 
     private String incomeProfile;
 
-    private UUID nutritionistId;
+    private LocalDate registrationDate;
+
+    private UUID dietId;
+
+    private UUID groupId;
 }

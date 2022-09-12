@@ -53,7 +53,7 @@ public class NutritionistModel {
     private String dietType;
 
     @Transient
-    List<DietsGroupsModel> dietsGroups;
+    List<DietGroupModel> dietGroups;
 
     @Transient
     List<DietModel> diets;

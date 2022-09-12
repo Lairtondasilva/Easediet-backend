@@ -35,3 +35,7 @@ spring:
           uri: lb://PATIENT-SERVICE
           predicates:
             - Path=/patient/**
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
