@@ -45,6 +45,11 @@ public class DietController {
         return foodService.getFood(foods);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<DietModel>> getAllDiets(){
+        return ResponseEntity.ok(dietRepository.findAll());
+    }
+
     @GetMapping("/{dietId}")
     public ResponseEntity<DietModel> getDietById(@PathVariable UUID dietId) {
         return dietRepository.findById(dietId).map(diet -> ResponseEntity.ok(diet))
