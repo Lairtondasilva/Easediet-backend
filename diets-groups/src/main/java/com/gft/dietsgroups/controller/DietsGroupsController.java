@@ -21,7 +21,7 @@ import com.gft.dietsgroups.repositories.DietGroupRepository;
 import com.gft.dietsgroups.services.PatientService;
 
 @RestController
-@RequestMapping("/diet-groups")
+@RequestMapping("/diets-groups")
 public class DietsGroupsController {
 
     @Autowired
