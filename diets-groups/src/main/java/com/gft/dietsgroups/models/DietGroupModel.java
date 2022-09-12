@@ -26,7 +26,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "tb_diet_group")
-public class DietsGroupsModel {
+public class DietGroupModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

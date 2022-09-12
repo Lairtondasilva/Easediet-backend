@@ -1,17 +1,13 @@
 package com.gft.patient.models;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -88,8 +84,4 @@ public class PatientModel {
     @Column(name = "group_id")
     private UUID groupId;
 
-    @PrePersist
-    public void prePersist() {
-        this.id = UUID.randomUUID();
-    }
 }

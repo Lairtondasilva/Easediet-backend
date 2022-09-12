@@ -10,7 +10,17 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
-
+resilience4j:
+  ratelimiter:
+    instances:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+  retry:
+    instances:
+      test:
+        max-attempts: 3
+        wait-duration: 1s
 spring:
   application:
     name: patient-service

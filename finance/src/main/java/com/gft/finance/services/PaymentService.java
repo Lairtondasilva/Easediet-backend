@@ -1,7 +1,8 @@
 package com.gft.finance.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,23 +13,29 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.finance.dtos.PatientPaymentResponse;
 import com.gft.finance.mappers.PaymentMapper;
+import com.gft.finance.models.PatientModel;
 import com.gft.finance.models.PaymentModel;
 import com.gft.finance.repositories.PaymentRepository;
-import com.netflix.discovery.converters.Auto;
 
 @Service
 public class PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
     @Autowired
     private PaymentMapper paymentMapper;
 
+    @Autowired
+    private PatientService patientService;
+
+    // retorna todas as contas de um paciente
     public List<PatientPaymentResponse> getBillByPatientId(UUID id) {
         var payments = paymentRepository.findAllByPatientId(id);
         return payments.stream().map(p -> paymentMapper.toPatientPaymentResponse(p)).toList();
     }
 
+    // paga um determinada conta
     public PatientPaymentResponse toPayBill(UUID id) {
 
         var bill = paymentRepository.findById(id);
@@ -42,6 +49,60 @@ public class PaymentService {
         bill.get().setIsPaid(true);
         bill.get().setPaymentOrderDate(LocalDate.now());
         return paymentMapper.toPatientPaymentResponse(paymentRepository.save(bill.get()));
+    }
+
+    public List<PaymentModel> createBills() {
+        var currentDate = LocalDate.now();
+        var patients = patientService.getAllPatients();
+        var bills = paymentRepository.findAll();
+        List generatedBills = new ArrayList<PaymentModel>();
+
+        try {
+            patients.forEach(patient -> {
+                var registrationMonth = patient.getRegistrationDate().getMonthValue();
+                var currentMonth = currentDate.getMonthValue();
+                var patientBills = paymentRepository.findAllByPatientId(patient.getId());
+                if (checkInitialRegistrationWithoutBill(registrationMonth, currentMonth, patientBills))
+                    savePayment(patient, currentDate, generatedBills);
+                patientBills.forEach(bill -> {
+                    if (checkIfPaymentDueDate(bill, currentDate))
+                        savePayment(patient, currentDate, generatedBills);
+                });
+            });
+        } catch (Exception e) {
+        }
+        return generatedBills;
+    }
+
+    // checa se o mês atual é dezembro se for retorna o próximo ano senão o ano
+    // atual
+    public int getNextYearIfDecemberOrCurrentYear(LocalDate currentDate) {
+        return (currentDate.getMonthValue() == 12) ? currentDate.getYear() + 1 : currentDate.getYear();
+    }
+
+    public int getNextMonth(LocalDate currentDate) {
+        return (currentDate.getMonthValue() == 12) ? 1 : currentDate.getMonthValue() + 1;
+    }
+
+    public boolean checkIfPaymentDueDate(PaymentModel bill, LocalDate currentDate) {
+        return (bill.getPaymentDueDate().getDayOfMonth() == currentDate.getDayOfMonth()
+                && bill.getPaymentDueDate().getMonth() == currentDate.getMonth()
+                && bill.getPaymentDueDate().getYear() == currentDate.getYear());
+    }
+
+    public void savePayment(PatientModel patient, LocalDate currentDate, List<PaymentModel> generatedBills) {
+        var payment = new PaymentModel(UUID.randomUUID(), patient.getId(), null, BigDecimal.valueOf(19.90),
+                convertMonth(currentDate.getMonthValue()),
+                LocalDate.of(getNextYearIfDecemberOrCurrentYear(currentDate),
+                        getNextMonth(currentDate), currentDate.getDayOfMonth()),
+                null, false);
+        generatedBills.add(paymentRepository.save(payment));
+    }
+
+    // checa se foi o primeiro registro e se o paciente não tem uma conta gerada
+    public boolean checkInitialRegistrationWithoutBill(int registrationMonth, int currentMonth,
+            List<PaymentModel> patientBills) {
+        return (registrationMonth == currentMonth && patientBills.isEmpty());
     }
 
     public String convertMonth(int month) {

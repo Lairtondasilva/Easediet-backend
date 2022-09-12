@@ -1,7 +1,6 @@
 package com.gft.diet.controller;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,15 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.diet.model.DietModel;
+import com.gft.diet.model.FoodList;
 import com.gft.diet.repository.DietRepository;
 import com.gft.diet.service.DietService;
-import com.gft.diet.service.TranslateService;
-import com.gft.diet.translation.RespDat;
-import com.gft.diet.translation.RespText;
+import com.gft.diet.service.FoodService;
 
 @RestController
 @RequestMapping("/diets")
-@CrossOrigin(origins="*", allowedHeaders="*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DietController {
 
     @Autowired
@@ -38,10 +36,19 @@ public class DietController {
     @Autowired
     private DietService dietService;
 
+    @Autowired
+    private FoodService foodService;
+
+
+    @PostMapping("/foods")
+    public FoodList getFoodList(@RequestBody List<String> foods) throws IOException, InterruptedException {
+        return foodService.getFood(foods);
+    }
 
     @GetMapping("/{dietId}")
-    public ResponseEntity<DietModel> getDietById (@PathVariable UUID dietId){
-        return dietRepository.findById(dietId).map(diet -> ResponseEntity.ok(diet)).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<DietModel> getDietById(@PathVariable UUID dietId) {
+        return dietRepository.findById(dietId).map(diet -> ResponseEntity.ok(diet))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @GetMapping("/nutritionist/{nutritionistId}")
@@ -51,22 +58,23 @@ public class DietController {
 
     @GetMapping("/dietgroup/{dietGroupId}")
     public ResponseEntity<DietModel> getDietOfDietGroupById(@PathVariable UUID dietGroupId) {
-        return dietRepository.findByDietGroupId(dietGroupId).map(diet ->ResponseEntity.ok(diet)).orElse(ResponseEntity.notFound().build());
+        return dietRepository.findByDietGroupId(dietGroupId).map(diet -> ResponseEntity.ok(diet))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity <DietModel> dietRegister (@Valid @RequestBody DietModel diet){
-        return dietService.registerDiet(diet);
+    public ResponseEntity<DietModel> dietRegister(@Valid @RequestBody DietModel diet) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(dietRepository.save(diet));
     }
 
     @PutMapping
-    public ResponseEntity <DietModel> dietUpdate(@Valid @RequestBody DietModel diet){
+    public ResponseEntity<DietModel> dietUpdate(@Valid @RequestBody DietModel diet) {
         return dietService.updateDiet(diet).map(resp -> ResponseEntity.ok(resp))
-            .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping ("/{dietId}")
-    public void dietDelete (@PathVariable UUID dietId){
+    @DeleteMapping("/{dietId}")
+    public void dietDelete(@PathVariable UUID dietId) {
         dietRepository.deleteById(dietId);
     }
 

@@ -16,29 +16,30 @@ import lombok.ToString;
 @ToString
 @JsonNaming(SnakeCaseStrategy.class)
 public class FoodModel {
-    private double sugarG;
 
-    private double fiberG;
+    private String sugarG;
 
-    private double servingSizeG;
+    private String fiberG;
 
-    private double sodiumMg;
+    private String servingSizeG;
+
+    private String sodiumMg;
 
     private String name;
 
-    private double potassiumMg;
+    private String potassiumMg;
 
-    private double fatSaturatedG;
+    private String fatSaturatedG;
 
-    private double fatTotalG;
+    private String fatTotalG;
 
-    private double calories;
+    private String calories;
 
-    private double cholesterolMg;
+    private String cholesterolMg;
 
-    private double proteinG;
+    private String proteinG;
 
-    private double carbohydratesTotalG;
+    private String carbohydratesTotalG;
 
-    private double amount;
+    private String amount;
 }
