@@ -59,6 +59,16 @@
             "projectName": "diet",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FinanceApplication<finance>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gft.finance.FinanceApplication",
+            "projectName": "finance",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
