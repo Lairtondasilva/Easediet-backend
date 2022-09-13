@@ -25,10 +25,14 @@ import com.gft.nutritionist.services.DietGroupService;
 import com.gft.nutritionist.services.DietService;
 import com.gft.nutritionist.services.NutritionistService;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
 @RequestMapping("/nutritionist")
-@CrossOrigin(origins ="*",allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CircuitBreaker(name = "default")
+@Retry(name = "default")
 public class NutritionistController {
 
     @Autowired
@@ -44,7 +48,7 @@ public class NutritionistController {
     private DietService dietService;
 
     @GetMapping("/all")
-    public ResponseEntity <List<NutritionistModel>> getAllNutritionists(){
+    public ResponseEntity<List<NutritionistModel>> getAllNutritionists() {
         return ResponseEntity.ok(nutritionistRepository.findAll());
     }
 
@@ -52,44 +56,45 @@ public class NutritionistController {
     public ResponseEntity<NutritionistModel> getNutritionistById(@PathVariable UUID nutritionistId) {
 
         // var nutritionist = new NutritionistModel(UUID.randomUUID(), "Ingrid",
-        //         "1234-5",
-        //         "Ingrid@gmail.com", "12345678", "Healthy", null, null);
+        // "1234-5",
+        // "Ingrid@gmail.com", "12345678", "Healthy", null, null);
 
-        // var groups = dietsGroupsService.findDietsGroupsByNutritionistId(nutritionistId);
+        // var groups =
+        // dietsGroupsService.findDietsGroupsByNutritionistId(nutritionistId);
         // nutritionist.setDietsGroups(groups);
 
         // var diets = dietService.findDietByNutritionistId(nutritionistId);
         // nutritionist.setDiets(diets);
-        
+
         // return nutritionist;
 
         return nutritionistRepository.findById(nutritionistId).map(nutri -> {
-        	var groups = dietGroupService.findDietsGroupsByNutritionistId(nutri.getId());
-        	nutri.setDietGroups(groups);
-        	return ResponseEntity.ok(nutri);
-        	}).orElse(ResponseEntity.notFound().build());
+            var groups = dietGroupService.findDietsGroupsByNutritionistId(nutri.getId());
+            nutri.setDietGroups(groups);
+            return ResponseEntity.ok(nutri);
+        }).orElse(ResponseEntity.notFound().build());
 
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Optional<NutritionistModel>> nutritionistRegisterPost(@RequestBody NutritionistModel nutritionist){
+    public ResponseEntity<Optional<NutritionistModel>> nutritionistRegisterPost(
+            @RequestBody NutritionistModel nutritionist) {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(nutritionistService.registerNutritionist(nutritionist));
+                .body(nutritionistService.registerNutritionist(nutritionist));
     }
 
-    //@PostMapping("/login")
+    // @PostMapping("/login")
 
     @PutMapping("/update")
-    public ResponseEntity<NutritionistModel> nutritionistUpdatePut(@Valid @RequestBody NutritionistModel nutritionist){
+    public ResponseEntity<NutritionistModel> nutritionistUpdatePut(@Valid @RequestBody NutritionistModel nutritionist) {
         return nutritionistService.updateNutritionist(nutritionist)
-            .map(response -> ResponseEntity.ok(response))
-            .orElse(ResponseEntity.notFound().build());
+                .map(response -> ResponseEntity.ok(response))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/id")
-    public void nutritionistDelete (@PathVariable UUID nutritionistId){
+    public void nutritionistDelete(@PathVariable UUID nutritionistId) {
         nutritionistRepository.deleteById(nutritionistId);
     }
-
 
 }

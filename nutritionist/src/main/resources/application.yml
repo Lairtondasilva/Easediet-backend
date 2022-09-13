@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+resilience4j:
+  ratelimiter:
+    instances:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+  retry:
+    instances:
+      default:
+        max-attempts: 3
+        wait-duration: 1s
+  circuit-breaker:
+    instances:
+      default:
+        falhe-rate-threshold: 40
+=======
 server:
   port: 8081
 
@@ -29,3 +46,4 @@ spring:
     time-zone: Brazil/East
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+>>>>>>> 27e4efb5e76f64e3c0b44d9c2f3980f6d97376ac

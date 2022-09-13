@@ -28,28 +28,14 @@ import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
 @RequestMapping("/patient")
+@CircuitBreaker(name = "default")
+@Retry(name = "default")
 public class PatientController {
 
     @Autowired
     private PatientService patientService;
 
     private Logger logger = LoggerFactory.getLogger(PatientController.class);
-
-    @GetMapping("/test")
-    @Retry(name = "test", fallbackMethod = "fallback")
-    // @CircuitBreaker(name = "default", fallbackMethod = "fallback")
-    // @RateLimiter(name = "default")
-    public String test() {
-        logger.info("request to test is received");
-        var response = new RestTemplate().getForEntity("http://localhost:8080/food",
-                String.class);
-        // return response.getBody();
-        return "Hello World";
-    }
-
-    public String fallback(Exception ex) {
-        return "Hello guys!";
-    }
 
     @GetMapping("/all")
     public ResponseEntity<List<PatientModel>> getAll() {
@@ -62,7 +48,6 @@ public class PatientController {
     }
 
     @GetMapping("/diet-groups/{dietsGroupsId}")
-    @CircuitBreaker(name = "default", fallbackMethod = "getAllByGroupIdFail")
     @Retry(name = "default", fallbackMethod = "getAllByGroupIdFail")
     public ResponseEntity<List<PatientModel>> getAllByGroupId(@PathVariable UUID dietsGroupsId) {
         // var resp = new RestTemplate().getForEntity("http://localhost:8080/food",

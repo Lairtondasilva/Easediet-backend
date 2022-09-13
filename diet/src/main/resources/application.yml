@@ -6,12 +6,36 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8762/eureka
     registerWithEureka: true
+<<<<<<< HEAD
+    fetchRegister: true
+    
+resilience4j:
+  ratelimiter:
+    instances:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+  retry:
+    instances:
+      default:
+        max-attempts: 3
+        wait-duration: 1s
+  circuit-breaker:
+    instances:
+      default:
+        falhe-rate-threshold: 40
+=======
     fetchRegistry: true
+<<<<<<< HEAD
 management:
   endpoints:
     web:
       exposure:
         include: health,info,mappings
+=======
+>>>>>>> 27e4efb5e76f64e3c0b44d9c2f3980f6d97376ac
+    
+>>>>>>> 182e3df2f82f95c87429510c2c97ddf9786c4bd5
 spring:
   application:
     name: diet-service
