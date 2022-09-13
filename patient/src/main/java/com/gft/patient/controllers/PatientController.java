@@ -36,13 +36,13 @@ public class PatientController {
     private Logger logger = LoggerFactory.getLogger(PatientController.class);
 
     @GetMapping("/test")
-     //@Retry(name = "test", fallbackMethod = "fallback")
+    @Retry(name = "test", fallbackMethod = "fallback")
     // @CircuitBreaker(name = "default", fallbackMethod = "fallback")
-   @RateLimiter(name = "default")
+    // @RateLimiter(name = "default")
     public String test() {
         logger.info("request to test is received");
-         //var response = new RestTemplate().getForEntity("http://localhost:8080/food",
-        //.class);
+        var response = new RestTemplate().getForEntity("http://localhost:8080/food",
+                String.class);
         // return response.getBody();
         return "Hello World";
     }
@@ -61,9 +61,17 @@ public class PatientController {
         return patientService.getPatientById(id);
     }
 
-    @GetMapping("/diets-groups/{dietsGroupsId}")
+    @GetMapping("/diet-groups/{dietsGroupsId}")
+    @CircuitBreaker(name = "default", fallbackMethod = "getAllByGroupIdFail")
+    @Retry(name = "default", fallbackMethod = "getAllByGroupIdFail")
     public ResponseEntity<List<PatientModel>> getAllByGroupId(@PathVariable UUID dietsGroupsId) {
+        // var resp = new RestTemplate().getForEntity("http://localhost:8080/food",
+        // String.class);
         return patientService.getAllPatientsByGroupId(dietsGroupsId);
+    }
+
+    public ResponseEntity<String> getAllByGroupIdFail(Exception e) {
+        return ResponseEntity.badRequest().body("The service is currently unavailable.");
     }
 
     @PostMapping
