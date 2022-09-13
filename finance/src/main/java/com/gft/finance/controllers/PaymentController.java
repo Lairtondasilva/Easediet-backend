@@ -11,6 +11,7 @@ import java.util.Formatter.BigDecimalLayoutForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.xml.PluggableSchemaResolver;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,13 +53,22 @@ public class PaymentController {
     }
 
     @GetMapping("/patient/{id}")
+    @Retry(name = "default", fallbackMethod = "getBillFail")
     public List<PatientPaymentResponse> getBill(@PathVariable UUID id) {
         return paymentService.getBillByPatientId(id);
+    }
+
+    public ResponseEntity<String> getBillFail(Exception e) {
+        return ResponseEntity.badRequest().body("The service is currently unavailable.");
     }
 
     @PutMapping("/pay/{id}")
     public PatientPaymentResponse toPayBill(@PathVariable(name = "id") UUID id) {
         return paymentService.toPayBill(id);
+    }
+
+    public ResponseEntity<String> toPayBillFail(Exception e) {
+        return ResponseEntity.badRequest().body("Unable to make payment");
     }
 
     @PostMapping

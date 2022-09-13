@@ -25,15 +25,13 @@ public class TranslateService {
             throws IOException, InterruptedException {
         String sourceExpression = "q=%s&target=%s&source=%s";
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
-                .header("content-type", "application/x-www-form-urlencoded")
-                .header("Accept-Encoding", "application/gzip")
-                .header("X-RapidAPI-Key", "6b05740cb7msh26efe1ddd81ed82p1cd22ajsne7e7f309089c")
-                .header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
-                .method("POST",
-                        HttpRequest.BodyPublishers
-                                .ofString(String.format(sourceExpression, sourceText, targetLang, sourceLang)))
-                .build();
+		.uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
+		.header("content-type", "application/x-www-form-urlencoded")
+		.header("Accept-Encoding", "application/gzip")
+		.header("X-RapidAPI-Key", "6b05740cb7msh26efe1ddd81ed82p1cd22ajsne7e7f309089c")
+		.header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
+		.method("POST", HttpRequest.BodyPublishers.ofString(String.format(sourceExpression,sourceText,targetLang,sourceLang)))
+		.build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         RespDat resp = gson.fromJson(response.body(), RespDat.class);

@@ -5,9 +5,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8762/eureka
-    instance:
-      preferIpAddress: true
     registerWithEureka: true
+<<<<<<< HEAD
     fetchRegister: true
     
 resilience4j:
@@ -25,31 +24,28 @@ resilience4j:
     instances:
       default:
         falhe-rate-threshold: 40
+=======
+    fetchRegistry: true
+>>>>>>> 27e4efb5e76f64e3c0b44d9c2f3980f6d97376ac
     
 spring:
   application:
     name: diet-service
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/db_nutrition?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo&useSSl=false
-    username: root
-    password: root
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://database-1.co3n5hj6lnhk.sa-east-1.rds.amazonaws.com:5432/db_easediet
+    username: postgres
+    password: postgres153227%
   jpa:
     hibernate:
       ddl-auto: update
-    database: mysql
+    database: postgresql
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Brazil/East
     serialization:
       FAIL_ON_EMPTY_BEANS: false
-
-  # flyway:
-  #   url: jdbc:mysql://localhost:3306
-  #   schemas: db_nutrition
-  #   user: root
-  #   password: root 

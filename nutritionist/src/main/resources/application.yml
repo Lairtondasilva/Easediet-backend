@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 resilience4j:
   ratelimiter:
     instances:
@@ -13,3 +14,36 @@ resilience4j:
     instances:
       default:
         falhe-rate-threshold: 40
+=======
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/eureka
+    registerWithEureka: true
+    fetchRegistry: true
+    
+spring:
+  application:
+    name: nutritionist-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://database-1.co3n5hj6lnhk.sa-east-1.rds.amazonaws.com:5432/db_easediet
+    username: postgres
+    password: postgres153227%
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Brazil/East
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+>>>>>>> 27e4efb5e76f64e3c0b44d9c2f3980f6d97376ac

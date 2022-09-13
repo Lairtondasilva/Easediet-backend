@@ -1,3 +1,15 @@
+server:
+  port: 8085
+
+eureka:
+  instance: 
+    hostname: localhost
+    port: 8762
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
 resilience4j:
   ratelimiter:
     instances:
@@ -13,3 +25,24 @@ resilience4j:
     instances:
       default:
         falhe-rate-threshold: 40
+spring:
+  application:
+    name: payment-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://database-1.co3n5hj6lnhk.sa-east-1.rds.amazonaws.com:5432/db_easediet
+    username: postgres
+    password: postgres153227%
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Brazil/East
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
