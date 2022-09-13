@@ -6,12 +6,17 @@ eureka:
     port: 8762
   client:
     registerWithEureka: true
-    fetchRegister: true
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,mappings
 spring:
   application:
-    name: gateway
+    name: gateway    
   cloud:
     gateway:    
       discovery:
