@@ -21,8 +21,9 @@ import com.google.gson.GsonBuilder;
 @Service
 public class TranslateService {
 
-    public RespText translate(String sourceLang, String targetLang, String sourceText) throws IOException, InterruptedException{
-        String sourceExpression="q=%s&target=%s&source=%s";
+    public RespText translate(String sourceLang, String targetLang, String sourceText)
+            throws IOException, InterruptedException {
+        String sourceExpression = "q=%s&target=%s&source=%s";
         HttpRequest request = HttpRequest.newBuilder()
 		.uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
 		.header("content-type", "application/x-www-form-urlencoded")
@@ -39,14 +40,14 @@ public class TranslateService {
         return translatedResponse;
     }
 
-    public String generateSourceText (DietModel diet){
+    public String generateSourceText(DietModel diet) {
         TranslateDietDTO translateDietDTO = new TranslateDietDTO();
-        
-        //Preencher o DTO com as Strings de itens da DietModel
+
+        // Preencher o DTO com as Strings de itens da DietModel
         translateDietDTO.setBreakfastLiquid(diet.getBreakfastLiquid());
         translateDietDTO.setBreakfastSolid(diet.getBreakfastSolid());
         translateDietDTO.setBreakfastFruit(diet.getBreakfastFruit());
-        
+
         translateDietDTO.setLunchSideDish(diet.getLunchSideDish());
         translateDietDTO.setLunchProtein(diet.getLunchProtein());
         translateDietDTO.setLunchSalad(diet.getLunchSalad());
@@ -56,18 +57,18 @@ public class TranslateService {
         translateDietDTO.setDinnerSalad(diet.getDinnerSalad());
 
         Stream<String> translateDietDTOStream = Stream.of(
-            translateDietDTO.getBreakfastLiquid(),
-            translateDietDTO.getBreakfastSolid(),
-            translateDietDTO.getBreakfastFruit(),
-            translateDietDTO.getLunchSideDish(),
-            translateDietDTO.getLunchProtein(),
-            translateDietDTO.getLunchSalad(),
-            translateDietDTO.getDinnerSideDish(),
-            translateDietDTO.getDinnerProtein(),
-            translateDietDTO.getDinnerSalad());
+                translateDietDTO.getBreakfastLiquid(),
+                translateDietDTO.getBreakfastSolid(),
+                translateDietDTO.getBreakfastFruit(),
+                translateDietDTO.getLunchSideDish(),
+                translateDietDTO.getLunchProtein(),
+                translateDietDTO.getLunchSalad(),
+                translateDietDTO.getDinnerSideDish(),
+                translateDietDTO.getDinnerProtein(),
+                translateDietDTO.getDinnerSalad());
 
-        List<String> translateDietDTOStringList = translateDietDTOStream.collect(Collectors.toList()); 
-        
+        List<String> translateDietDTOStringList = translateDietDTOStream.collect(Collectors.toList());
+
         String sourceText = String.join(",", translateDietDTOStringList);
 
         return sourceText;

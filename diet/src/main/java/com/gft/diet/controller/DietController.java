@@ -1,11 +1,13 @@
 package com.gft.diet.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.apache.http.entity.EntityTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +20,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.gft.diet.model.DietModel;
 import com.gft.diet.model.FoodList;
 import com.gft.diet.repository.DietRepository;
 import com.gft.diet.service.DietService;
 import com.gft.diet.service.FoodService;
+import com.gft.diet.translation.RespText;
 
 @RestController
 @RequestMapping("/diets")
@@ -39,14 +43,23 @@ public class DietController {
     @Autowired
     private FoodService foodService;
 
-
     @PostMapping("/foods")
-    public FoodList getFoodList(@RequestBody List<String> foods) throws IOException, InterruptedException {
+    public FoodList getFoodList(@RequestBody DietModel diet) throws IOException, InterruptedException {
+        List<String> foods = new ArrayList<>();
+
+        var response = new RestTemplate().postForEntity("http://localhost:9000/translate/pt/en",
+                diet, RespText.class);
+
+        var foodList = response.getBody().getTranslatedText().split(",");
+
+        for (String food : foodList) {
+            foods.add(food);
+        }
         return foodService.getFood(foods);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<DietModel>> getAllDiets(){
+    public ResponseEntity<List<DietModel>> getAllDiets() {
         return ResponseEntity.ok(dietRepository.findAll());
     }
 

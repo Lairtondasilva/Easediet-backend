@@ -17,14 +17,15 @@ import com.gft.diet.translation.RespText;
 
 @RestController
 @RequestMapping("/translate")
-@CrossOrigin(origins="*", allowedHeaders="*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TranslateController {
 
     @Autowired
     private TranslateService translateService;
 
     @PostMapping("/{sourceLang}/{targetLang}")
-    public RespText postTranslation(@PathVariable String sourceLang, @PathVariable String targetLang, @RequestBody DietModel diet) throws IOException, InterruptedException{
-        return translateService.translate(sourceLang,targetLang,translateService.generateSourceText(diet));
-    } 
+    public RespText postTranslation(@PathVariable String sourceLang, @PathVariable String targetLang,
+            @RequestBody DietModel diet) throws IOException, InterruptedException {
+        return translateService.translate(sourceLang, targetLang, translateService.generateSourceText(diet));
+    }
 }

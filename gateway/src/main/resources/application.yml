@@ -23,6 +23,10 @@ spring:
           uri: lb://DIET-SERVICE
           predicates:
             - Path=/diets/**
+        - id: diet-service
+          uri: lb://DIET-SERVICE
+          predicates:
+            - Path=/translate/**
         - id: diets-groups-service
           uri: lb://DIETS-GROUPS-SERVICE
           predicates:
