@@ -9,6 +9,22 @@ eureka:
       preferIpAddress: true
     registerWithEureka: true
     fetchRegister: true
+    
+resilience4j:
+  ratelimiter:
+    instances:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+  retry:
+    instances:
+      default:
+        max-attempts: 3
+        wait-duration: 1s
+  circuit-breaker:
+    instances:
+      default:
+        falhe-rate-threshold: 40
 
 spring:
   application:

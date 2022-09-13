@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.apache.http.entity.EntityTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +28,14 @@ import com.gft.diet.service.DietService;
 import com.gft.diet.service.FoodService;
 import com.gft.diet.translation.RespText;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
 @RestController
 @RequestMapping("/diets")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@CircuitBreaker(name = "default")
+@Retry(name = "default")
 public class DietController {
 
     @Autowired
@@ -44,6 +48,7 @@ public class DietController {
     private FoodService foodService;
 
     @PostMapping("/foods")
+    @Retry(name = "default", fallbackMethod = "GetFoodListFail")
     public FoodList getFoodList(@RequestBody DietModel diet) throws IOException, InterruptedException {
         List<String> foods = new ArrayList<>();
 
@@ -58,6 +63,10 @@ public class DietController {
         return foodService.getFood(foods);
     }
 
+    public ResponseEntity<FoodList> GetFoodListFail(Exception e) {
+        return ResponseEntity.badRequest().body(null);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<DietModel>> getAllDiets() {
         return ResponseEntity.ok(dietRepository.findAll());
@@ -70,8 +79,13 @@ public class DietController {
     }
 
     @GetMapping("/nutritionist/{nutritionistId}")
-    public ResponseEntity<List<DietModel>> getAllDietsOfANutritionistById(@PathVariable UUID nutritionistId) {
+    @Retry(name = "default", fallbackMethod = "getAllDietsOfNutritionistId")
+    public ResponseEntity<List<DietModel>> getAllDietsOfNutritionistById(@PathVariable UUID nutritionistId) {
         return ResponseEntity.ok(dietRepository.findAllByNutritionistId(nutritionistId));
+    }
+
+    public ResponseEntity<List<DietModel>> getAllDietsOfNutritionistId(Exception e) {
+        return ResponseEntity.badRequest().body(null);
     }
 
     @GetMapping("/dietgroup/{dietGroupId}")

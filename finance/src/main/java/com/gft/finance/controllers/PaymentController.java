@@ -25,9 +25,14 @@ import com.gft.finance.models.PaymentModel;
 import com.gft.finance.repositories.PaymentRepository;
 import com.gft.finance.services.PaymentService;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
 @RestController
 @RequestMapping("/payment")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@CircuitBreaker(name = "default")
+@Retry(name = "default")
 public class PaymentController {
 
     @Autowired

@@ -24,7 +24,7 @@ resilience4j:
   circuit-breaker:
     instances:
       default:
-        falhe-rate-threshold: 10
+        falhe-rate-threshold: 40
 spring:
   application:
     name: patient-service
