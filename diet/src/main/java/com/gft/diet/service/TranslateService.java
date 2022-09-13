@@ -27,7 +27,7 @@ public class TranslateService {
 		.uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
 		.header("content-type", "application/x-www-form-urlencoded")
 		.header("Accept-Encoding", "application/gzip")
-		.header("X-RapidAPI-Key", "726259cd3fmsh1e1ed177343ea95p111e5cjsnb179dcc931c1")
+		.header("X-RapidAPI-Key", "6b05740cb7msh26efe1ddd81ed82p1cd22ajsne7e7f309089c")
 		.header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
 		.method("POST", HttpRequest.BodyPublishers.ofString(String.format(sourceExpression,sourceText,targetLang,sourceLang)))
 		.build();
