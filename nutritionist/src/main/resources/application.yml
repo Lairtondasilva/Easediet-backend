@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 resilience4j:
   ratelimiter:
     instances:
@@ -14,7 +13,6 @@ resilience4j:
     instances:
       default:
         falhe-rate-threshold: 40
-=======
 server:
   port: 8081
 
@@ -28,6 +26,12 @@ eureka:
 spring:
   application:
     name: nutritionist-service
+  config:
+    import:
+      - optional:configserver:http://localhost:8888/
+  cloud:
+    config:
+      profile: application-nutritionist 
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://database-1.co3n5hj6lnhk.sa-east-1.rds.amazonaws.com:5432/db_easediet
@@ -46,4 +50,3 @@ spring:
     time-zone: Brazil/East
     serialization:
       FAIL_ON_EMPTY_BEANS: false
->>>>>>> 27e4efb5e76f64e3c0b44d9c2f3980f6d97376ac

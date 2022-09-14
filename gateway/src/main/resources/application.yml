@@ -13,11 +13,16 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,mappings
+        include: health,info,mappings,refresh
 spring:
   application:
-    name: gateway    
+    name: gateway
+  config:
+    import:
+      - optional:configserver:http://localhost:8888/    
   cloud:
+    config:
+      profile: application-gateway
     gateway:    
       discovery:
         locator:

@@ -1,8 +1,8 @@
 server:
-  port: 8086
+  port: 8888
 spring:
   application:
-    name: config-server
+    name: easediet-config-server
   cloud:
     config:
       server:
@@ -12,5 +12,5 @@ spring:
           #password:
           default-label: main
           search-paths:
-          - 'config-files*'
+          - 'easediet-config*'
         
