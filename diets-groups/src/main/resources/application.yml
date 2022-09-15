@@ -1,6 +1,5 @@
 server:
   port: 8084
-
 eureka:
   client:
     serviceUrl:
@@ -33,7 +32,7 @@ spring:
       - optional:configserver:http://localhost:8888/
   cloud:
     config:
-      profile: application-diets-groups   
+      profile: diets-groups   
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://database-1.co3n5hj6lnhk.sa-east-1.rds.amazonaws.com:5432/db_easediet

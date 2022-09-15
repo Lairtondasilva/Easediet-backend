@@ -2,10 +2,7 @@ package com.gft.finance.dtos;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
-
-import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

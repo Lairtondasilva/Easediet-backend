@@ -1,14 +1,15 @@
 server:
   port: 9000
 eureka:
-  instance: 
+  instance:
     hostname: localhost
-    port: 8762
+    preferIpAddress: true
   client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/eureka
     registerWithEureka: true
     fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+
 management:
   endpoints:
     web:
@@ -22,7 +23,7 @@ spring:
       - optional:configserver:http://localhost:8888/    
   cloud:
     config:
-      profile: application-gateway
+      profile: gateway
     gateway:    
       discovery:
         locator:

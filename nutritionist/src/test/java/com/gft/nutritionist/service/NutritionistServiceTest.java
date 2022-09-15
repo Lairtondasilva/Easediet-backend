@@ -1,7 +1,5 @@
 package com.gft.nutritionist.service;
 
-import static org.mockito.Mockito.when;
-
 import java.util.UUID;
 
 import org.junit.jupiter.api.Order;

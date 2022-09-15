@@ -5,7 +5,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.gft.dietsgroups.models.DietGroupModel;
 import com.gft.dietsgroups.repositories.DietGroupRepository;
 import com.gft.dietsgroups.services.PatientService;
 

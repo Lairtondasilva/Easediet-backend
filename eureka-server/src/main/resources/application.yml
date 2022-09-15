@@ -18,4 +18,4 @@ spring:
       - optional:configserver:http://localhost:8888/
   cloud:
     config:
-      profile: application-eureka-server  
+      profile: eureka-server  

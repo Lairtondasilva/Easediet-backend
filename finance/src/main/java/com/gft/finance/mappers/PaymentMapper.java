@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gft.finance.dtos.PatientPaymentResponse;
-import com.gft.finance.models.NutritionistModel;
 import com.gft.finance.models.PaymentModel;
 import com.gft.finance.services.NutritionistService;
 import com.gft.finance.services.PatientService;

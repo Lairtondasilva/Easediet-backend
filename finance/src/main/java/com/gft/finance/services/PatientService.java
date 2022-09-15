@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gft.finance.models.PatientModel;
 
+@RequestMapping("/patient")
 @FeignClient("patient-service")
 public interface PatientService {
 
-    @GetMapping("/patient/{id}")
+    @GetMapping("/{id}")
     public PatientModel getPatientById(@PathVariable UUID id);
 
-    @GetMapping("/patient/all")
+    @GetMapping("/all")
     public List<PatientModel> getAllPatients();
 }

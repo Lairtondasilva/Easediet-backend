@@ -1,11 +1,8 @@
 package com.gft.patient.models;
 
-import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.JoinColumn;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
