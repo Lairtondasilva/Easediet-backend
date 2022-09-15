@@ -1,0 +1,16 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/andreiflancanova/Easediet-Config-Server
+          #username: username
+          #password:
+          default-label: main
+          search-paths:
+          - 'config-files*'
+        

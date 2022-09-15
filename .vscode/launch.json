@@ -2,6 +2,19 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch AuthServiceApplication",
+            "request": "launch",
+            "mainClass": "com.gft.authservice.AuthServiceApplication"
+        },
+        {
+            "type": "java",
+            "name": "Launch ConfigServerApplication",
+            "request": "launch",
+            "mainClass": "com.gft.configserver.ConfigServerApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-EurekaServerApplication<eureka-server>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
