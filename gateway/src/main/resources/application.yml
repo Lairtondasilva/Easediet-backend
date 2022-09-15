@@ -24,7 +24,7 @@ spring:
       discovery:
         locator:
           enabled: true
-          lower-case-service-id: true
+          lowerCaseServiceId: true
       routes:
       #   - id: diet-service
       #     uri: lb://DIET-SERVICE
