@@ -54,4 +54,4 @@ spring:
 jwt:
   secret: secretkey
   token:
-    validity: 180000
+    validity: 1800000
