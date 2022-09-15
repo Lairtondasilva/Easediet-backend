@@ -7,11 +7,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.patient.models.PatientModel;
+import com.gft.patient.models.UserLogin;
 import com.gft.patient.repositories.PatientRepository;
+import com.gft.patient.util.JwtUtil;
 
 @Service
 public class PatientService {
@@ -19,11 +22,16 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     // registers a patient
     public ResponseEntity<PatientModel> registerPatient(PatientModel patient) {
         if (checkIfPatientExists(patient.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already registered", null);
         }
+        patient.setPassword(criptografarSenha(patient.getPassword()));
+
         var patientSaved = patientRepository.save(patient);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(patientSaved);
@@ -69,6 +77,41 @@ public class PatientService {
             return true;
         }
         return false;
+    }
+
+    public Optional<String> patientAuthentication(UserLogin userLogin) {
+
+        Optional<PatientModel> patient = patientRepository
+                .findByEmailContainingIgnoreCase(userLogin.getUsername());
+
+        if (patient.isPresent()) {
+            if (compararSenhas(userLogin.getPassword(), patient.get().getPassword())) {
+                userLogin.setPassword(patient.get().getPassword());
+                userLogin.setId(patient.get().getId());
+                userLogin.setRole(patient.get().getRole());
+
+                return Optional.of(jwtUtil.generateToken(userLogin));
+            }
+        }
+
+        return Optional.empty();
+
+    }
+
+    private boolean compararSenhas(String senhaDigitada, String senhaBD) {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return encoder.matches(senhaDigitada, senhaBD);
+
+    }
+
+    private String criptografarSenha(String senha) {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return encoder.encode(senha);
+
     }
 
 }
