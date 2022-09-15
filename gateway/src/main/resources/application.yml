@@ -16,35 +16,39 @@ management:
         include: health,info,mappings
 spring:
   application:
-    name: gateway    
+    name: gateway
+  jackson:
+    default-property-inclusion: NON_NULL    
   cloud:
     gateway:    
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
-        - id: diet-service
-          uri: lb://DIET-SERVICE
-          predicates:
-            - Path=/diets/**
-        - id: diet-service
-          uri: lb://DIET-SERVICE
-          predicates:
-            - Path=/translate/**
-        - id: diets-groups-service
-          uri: lb://DIETS-GROUPS-SERVICE
-          predicates:
-            - Path=/diets-groups/**
-        - id: nutritionist-service
-          uri: lb://NUTRITIONIST-SERVICE
-          predicates:
-            - Path=/nutritionist/**
-        - id: patient-service
-          uri: lb://PATIENT-SERVICE
-          predicates:
-            - Path=/patient/**
-        - id: payment-service
-          uri: lb://PAYMENT-SERVICE
-          predicates:
-            - Path=/payment/**
+      # routes:
+      #   - id: diet-service
+      #     uri: lb://DIET-SERVICE
+      #     predicates:
+      #       - Path=/diets/**
+      #   - id: diet-service
+      #     uri: lb://DIET-SERVICE
+      #     predicates:
+      #       - Path=/translate/**
+      #   - id: diets-groups-service
+      #     uri: lb://DIETS-GROUPS-SERVICE
+      #     predicates:
+      #       - Path=/diets-groups/**
+      #   - id: nutritionist-service
+      #     uri: lb://NUTRITIONIST-SERVICE
+      #     predicates:
+      #       - Path=/nutritionist/**
+      #   - id: patient-service
+      #     uri: lb://PATIENT-SERVICE
+      #     predicates:
+      #       - Path=/patient/**
+      #   - id: payment-service
+      #     uri: lb://PAYMENT-SERVICE
+      #     predicates:
+      #       - Path=/payment/**
+jwt:
+  secret: secretkey
