@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch PaymentApplication",
+            "request": "launch",
+            "mainClass": "com.gft.payment.PaymentApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Launch ConfigServerApplication",
             "request": "launch",
             "mainClass": "com.gft.configserver.ConfigServerApplication",
