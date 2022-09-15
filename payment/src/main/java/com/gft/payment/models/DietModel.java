@@ -1,4 +1,4 @@
-package com.gft.finance.models;
+package com.gft.payment.models;
 
 import java.util.List;
 import java.util.UUID;

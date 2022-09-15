@@ -1,4 +1,4 @@
-package com.gft.finance.controllers;
+package com.gft.payment.controllers;
 
 
 import java.util.List;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gft.finance.dtos.PatientPaymentResponse;
-import com.gft.finance.models.PaymentModel;
-import com.gft.finance.repositories.PaymentRepository;
-import com.gft.finance.services.PaymentService;
+import com.gft.payment.dtos.PatientPaymentResponse;
+import com.gft.payment.models.PaymentModel;
+import com.gft.payment.repositories.PaymentRepository;
+import com.gft.payment.services.PaymentService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;

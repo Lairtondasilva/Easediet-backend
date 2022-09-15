@@ -1,4 +1,4 @@
-package com.gft.finance.services;
+package com.gft.payment.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,11 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.gft.finance.dtos.PatientPaymentResponse;
-import com.gft.finance.mappers.PaymentMapper;
-import com.gft.finance.models.PatientModel;
-import com.gft.finance.models.PaymentModel;
-import com.gft.finance.repositories.PaymentRepository;
+import com.gft.payment.dtos.PatientPaymentResponse;
+import com.gft.payment.mappers.PaymentMapper;
+import com.gft.payment.models.PatientModel;
+import com.gft.payment.models.PaymentModel;
+import com.gft.payment.repositories.PaymentRepository;
 
 @Service
 public class PaymentService {

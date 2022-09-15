@@ -1,4 +1,4 @@
-package com.gft.finance.services;
+package com.gft.payment.services;
 
 import java.util.List;
 import java.util.UUID;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gft.finance.models.PatientModel;
+import com.gft.payment.models.PatientModel;
 
 @RequestMapping("/patient")
 @FeignClient("patient-service")

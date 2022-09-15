@@ -1,4 +1,4 @@
-package com.gft.finance.models;
+package com.gft.payment.models;
 
 import java.time.LocalDate;
 import java.util.UUID;

@@ -1,13 +1,8 @@
-package com.gft.finance.models;
+package com.gft.payment.dtos;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,30 +12,18 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Entity
-@Builder
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PaymentModel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Include
+public class PatientPaymentResponse {
     private UUID id;
-
-    private UUID patientId;
-
-    private UUID nutritionistId;
-
-    private BigDecimal monthlyFee;
-
+    private String patientName;
+    private String nutritionistName;
+    private BigDecimal billValue;
     private String referenceMonth;
-
     private LocalDate paymentDueDate;
-
     private LocalDate paymentOrderDate;
-
-    private Boolean isPaid;
+    private String status;
 }

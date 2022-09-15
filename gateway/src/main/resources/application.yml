@@ -1,56 +1,7 @@
-server:
-  port: 9000
-eureka:
-  instance:
-    hostname: localhost
-    preferIpAddress: true
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8762/eureka
-    registerWithEureka: true
-    fetchRegistry: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,mappings,refresh
 spring:
   application:
     name: gateway
-  config:
-    import:
-      - optional:configserver:http://localhost:8888/    
+
   cloud:
     config:
-      profile: gateway
-    gateway:    
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: diet-service
-          uri: lb://DIET-SERVICE
-          predicates:
-            - Path=/diets/**
-        - id: diet-service
-          uri: lb://DIET-SERVICE
-          predicates:
-            - Path=/translate/**
-        - id: diets-groups-service
-          uri: lb://DIETS-GROUPS-SERVICE
-          predicates:
-            - Path=/diets-groups/**
-        - id: nutritionist-service
-          uri: lb://NUTRITIONIST-SERVICE
-          predicates:
-            - Path=/nutritionist/**
-        - id: patient-service
-          uri: lb://PATIENT-SERVICE
-          predicates:
-            - Path=/patient/**
-        - id: payment-service
-          uri: lb://PAYMENT-SERVICE
-          predicates:
-            - Path=/payment/**
+      uri: http://localhost:8888

@@ -7,7 +7,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/andreiflancanova/Easediet-Config-Server.git
+          uri: https://github.com/andreiflancanova/Easediet-Config-Server
+          force-pull: true
           default-label: main
           search-paths:
           - 'easediet-config*'

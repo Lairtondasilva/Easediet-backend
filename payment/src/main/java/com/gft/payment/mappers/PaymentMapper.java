@@ -1,12 +1,12 @@
-package com.gft.finance.mappers;
+package com.gft.payment.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gft.finance.dtos.PatientPaymentResponse;
-import com.gft.finance.models.PaymentModel;
-import com.gft.finance.services.NutritionistService;
-import com.gft.finance.services.PatientService;
+import com.gft.payment.dtos.PatientPaymentResponse;
+import com.gft.payment.models.PaymentModel;
+import com.gft.payment.services.NutritionistService;
+import com.gft.payment.services.PatientService;
 
 @Service
 public class PaymentMapper {
