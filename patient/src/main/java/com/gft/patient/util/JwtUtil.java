@@ -1,12 +1,13 @@
-package com.gft.authservice.service.util;
+package com.gft.patient.util;
 
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.gft.authservice.service.exception.JwtTokenMalformedException;
-import com.gft.authservice.service.exception.JwtTokenMissingException;
+import com.gft.patient.exception.JwtTokenMalformedException;
+import com.gft.patient.exception.JwtTokenMissingException;
+import com.gft.patient.models.UserLogin;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -35,8 +36,8 @@ public class JwtUtil {
         return null;
     }
 
-    public String generateToken(String id) {
-        Claims claims = Jwts.claims().setSubject(id);
+    public String generateToken(UserLogin userLogin) {
+        Claims claims = Jwts.claims().setSubject(userLogin.toString());
         long nowMillis = System.currentTimeMillis();
         long expMillis = nowMillis + tokenValidity;
         Date exp = new Date(expMillis);
@@ -44,7 +45,8 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
-    public void validateToken(final String token) throws JwtTokenMalformedException, JwtTokenMissingException {
+    public void validateToken(final String token)
+            throws JwtTokenMalformedException, com.gft.patient.exception.JwtTokenMissingException {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
         } catch (SignatureException ex) {

@@ -1,5 +1,31 @@
 spring:
   application:
+<<<<<<< HEAD
     name: patient
   config:
     import: optional:configserver:http://localhost:8888
+=======
+    name: patient-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://database-1.co3n5hj6lnhk.sa-east-1.rds.amazonaws.com:5432/db_easediet
+    username: postgres
+    password: postgres153227%
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Brazil/East
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+jwt:
+  secret: secretkey
+  token:
+    validity: 1800000
+>>>>>>> 3f041f9df92cfda332aaceae831b971b09265daa

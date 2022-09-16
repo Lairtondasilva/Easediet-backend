@@ -1,3 +1,32 @@
+<<<<<<< HEAD
+=======
+server:
+  port: 8084
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/eureka
+    registerWithEureka: true
+    fetchRegistry: true
+    
+resilience4j:
+  ratelimiter:
+    instances:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+  retry:
+    instances:
+      default:
+        max-attempts: 3
+        wait-duration: 1s
+  circuit-breaker:
+    instances:
+      default:
+        falhe-rate-threshold: 40
+
+>>>>>>> 3f041f9df92cfda332aaceae831b971b09265daa
 spring:
   application:
     name: finance

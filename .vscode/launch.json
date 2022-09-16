@@ -2,10 +2,16 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "Launch PaymentApplication",
             "request": "launch",
             "mainClass": "com.gft.payment.PaymentApplication",
             "projectName": ""
+=======
+            "name": "Launch AuthServiceApplication",
+            "request": "launch",
+            "mainClass": "com.gft.authservice.AuthServiceApplication"
+>>>>>>> 3f041f9df92cfda332aaceae831b971b09265daa
         },
         {
             "type": "java",
@@ -86,11 +92,19 @@
         },
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "Spring Boot-ConfigServerApplication<config-server>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.gft.configserver.ConfigServerApplication",
             "projectName": "config-server",
+=======
+            "name": "Spring Boot-AuthServiceApplication<auth-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gft.authservice.AuthServiceApplication",
+            "projectName": "auth-service",
+>>>>>>> 3f041f9df92cfda332aaceae831b971b09265daa
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

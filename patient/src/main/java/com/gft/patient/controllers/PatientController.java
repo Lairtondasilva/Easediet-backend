@@ -1,6 +1,7 @@
 package com.gft.patient.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.patient.models.PatientModel;
+import com.gft.patient.models.UserLogin;
 import com.gft.patient.service.PatientService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -34,6 +36,11 @@ public class PatientController {
     private PatientService patientService;
 
     private Logger logger = LoggerFactory.getLogger(PatientController.class);
+
+    @PostMapping("/login")
+    public ResponseEntity<Optional<String>> login(@RequestBody UserLogin userLogin) {
+        return ResponseEntity.ok().body(patientService.patientAuthentication(userLogin));
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<PatientModel>> getAll() {
@@ -57,7 +64,7 @@ public class PatientController {
         return ResponseEntity.badRequest().body("The service is currently unavailable.");
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<PatientModel> registerPatient(@RequestBody @Valid PatientModel patient) {
         return patientService.registerPatient(patient);
     }

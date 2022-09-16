@@ -52,11 +52,6 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<!-- <dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency> -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -72,11 +67,19 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		  </dependency> 
-
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		  <dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		  </dependency>
+	   <dependency>
+		   <groupId>javax.xml.bind</groupId>
+		   <artifactId>jaxb-api</artifactId>
+	   </dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -87,19 +90,11 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.0</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>4.7.0</version>
-			<scope>test</scope>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>4.6.1</version>
+				<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -108,6 +103,12 @@
 			<type>pom</type>
 			<scope>import</scope>
 		</dependency>
+	<dependency>
+		<groupId>org.junit.jupiter</groupId>
+		<artifactId>junit-jupiter-api</artifactId>
+		<version>5.9.0</version>
+		<scope>test</scope>
+	</dependency>
 		</dependencies>
 	</dependencyManagement>
 

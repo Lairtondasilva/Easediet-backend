@@ -31,8 +31,8 @@ import com.gft.diet.translation.RespText;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 
-@RestController
 @RequestMapping("/diets")
+@RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @CircuitBreaker(name = "default")
 @Retry(name = "default")

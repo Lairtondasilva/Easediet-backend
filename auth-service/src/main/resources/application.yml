@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8087
 
 eureka:
   client:
@@ -7,6 +7,9 @@ eureka:
       defaultZone: http://localhost:8762/eureka
     registerWithEureka: true
     fetchRegistry: true
+  instance:
+    hostname: localhost
+    preferIpAddress: true
 # resilience4j:
 #   ratelimiter:
 #     instances:
@@ -29,7 +32,7 @@ eureka:
 #         include: health, info, mappings
 spring:
   application:
-    name: diet-service
+    name: auth-service
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://database-1.co3n5hj6lnhk.sa-east-1.rds.amazonaws.com:5432/db_easediet
@@ -48,3 +51,8 @@ spring:
     time-zone: Brazil/East
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+jwt:
+  secret: secretkey
+  token:
+    validity: 1800000
+    
