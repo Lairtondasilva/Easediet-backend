@@ -55,3 +55,4 @@ jwt:
   secret: secretkey
   token:
     validity: 1800000
+    

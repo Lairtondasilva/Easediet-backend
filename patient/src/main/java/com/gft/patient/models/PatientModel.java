@@ -84,4 +84,5 @@ public class PatientModel {
     @Column(name = "group_id")
     private UUID groupId;
 
+    private String role = "patient";
 }

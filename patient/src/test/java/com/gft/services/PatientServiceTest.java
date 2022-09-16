@@ -35,12 +35,12 @@ public class PatientServiceTest {
     private PatientModel patient1 = new PatientModel(UUID.fromString("076beb2a-20eb-4cc2-951e-6c121d714f2b"), "Lairton",
             "Lairton@gmail.com", "12345678",
             Double.valueOf(1.75), 65.2, 22, 0.65, "fasdf", "free",
-            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID());
+            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), "patient");
 
     private PatientModel patient2 = new PatientModel(UUID.fromString("15648ea9-6482-4b78-9d61-48285a026348"), "Lairton",
             "Lairton@gmail.com", "12345678",
             Double.valueOf(1.75), 65.2, 22, 0.65, "fasdf", "free",
-            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID());
+            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), "patient");
 
     @Test
     public void registerPatientTest() {

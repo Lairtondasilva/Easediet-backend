@@ -46,3 +46,7 @@ spring:
     time-zone: Brazil/East
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+jwt:
+  secret: secretkey
+  token:
+    validity: 1800000
