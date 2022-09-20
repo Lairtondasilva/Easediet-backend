@@ -3,3 +3,6 @@ spring:
     name: nutritionist
   config:
     import: optional:configserver:http://localhost:8888
+jwt:
+  private.key: classpath:app.key
+  public.key: classpath:app.pub

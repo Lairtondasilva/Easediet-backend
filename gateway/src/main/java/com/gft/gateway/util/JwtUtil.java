@@ -15,9 +15,9 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtUtil {
-    
-    @Value("${jwt.secret}")
-	private String jwtSecret;
+
+	public static final int tokenValidity = 600_000;
+	public static final String jwtSecret = "4e21dd7a-d685-4929-a76b-c2f0eb84f3af";
 
 	public Claims getClaims(final String token) {
 		try {
@@ -31,7 +31,7 @@ public class JwtUtil {
 
 	public void validateToken(final String token) throws JwtTokenMalformedException, JwtTokenMissingException {
 		try {
-			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token.replace("Bearer ", ""));
 		} catch (SignatureException ex) {
 			throw new JwtTokenMalformedException("Invalid JWT signature");
 		} catch (MalformedJwtException ex) {

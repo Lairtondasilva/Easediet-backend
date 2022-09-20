@@ -79,24 +79,24 @@ public class PatientService {
         return false;
     }
 
-    public Optional<String> patientAuthentication(UserLogin userLogin) {
+    // public Optional<String> patientAuthentication(UserLogin userLogin) {
 
-        Optional<PatientModel> patient = patientRepository
-                .findByEmailContainingIgnoreCase(userLogin.getUsername());
+    // Optional<PatientModel> patient = patientRepository
+    // .findByEmailContainingIgnoreCase(userLogin.getUsername());
 
-        if (patient.isPresent()) {
-            if (compararSenhas(userLogin.getPassword(), patient.get().getPassword())) {
-                userLogin.setPassword(patient.get().getPassword());
-                userLogin.setId(patient.get().getId());
-                userLogin.setRole(patient.get().getRole());
+    // if (patient.isPresent()) {
+    // if (compararSenhas(userLogin.getPassword(), patient.get().getPassword())) {
+    // userLogin.setPassword(patient.get().getPassword());
+    // userLogin.setId(patient.get().getId());
+    // userLogin.setRole(patient.get().getRole());
 
-                return Optional.of(jwtUtil.generateToken(userLogin));
-            }
-        }
+    // return Optional.of(jwtUtil.generateToken(userLogin));
+    // }
+    // }
 
-        return Optional.empty();
+    // return Optional.empty();
 
-    }
+    // }
 
     private boolean compararSenhas(String senhaDigitada, String senhaBD) {
 

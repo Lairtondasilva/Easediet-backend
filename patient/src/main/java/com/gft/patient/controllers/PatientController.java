@@ -37,10 +37,12 @@ public class PatientController {
 
     private Logger logger = LoggerFactory.getLogger(PatientController.class);
 
-    @PostMapping("/login")
-    public ResponseEntity<Optional<String>> login(@RequestBody UserLogin userLogin) {
-        return ResponseEntity.ok().body(patientService.patientAuthentication(userLogin));
-    }
+    // @PostMapping("/login")
+    // public ResponseEntity<Optional<String>> login(@RequestBody UserLogin
+    // userLogin) {
+    // return
+    // ResponseEntity.ok().body(patientService.patientAuthentication(userLogin));
+    // }
 
     @GetMapping("/all")
     public ResponseEntity<List<PatientModel>> getAll() {

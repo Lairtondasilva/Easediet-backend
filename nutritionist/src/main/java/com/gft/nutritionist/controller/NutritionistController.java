@@ -77,10 +77,8 @@ public class NutritionistController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Optional<NutritionistModel>> nutritionistRegisterPost(
-            @RequestBody NutritionistModel nutritionist) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(nutritionistService.registerNutritionist(nutritionist));
+    public ResponseEntity<NutritionistModel> nutritionistRegisterPost(@Valid @RequestBody NutritionistModel nutritionist) {
+        return nutritionistService.registerNutritionist(nutritionist);
     }
 
     // @PostMapping("/login")

@@ -25,6 +25,8 @@ public class GatewayConfig {
 						r -> r.path("/nutritionist/**").filters(f -> f.filter(filter)).uri("lb://NUTRITIONIST-SERVICE"))
 				.route("patient-service",
 						r -> r.path("/patient/**").filters(f -> f.filter(filter)).uri("lb://PATIENT-SERVICE"))
+				.route("patient-service",
+						r -> r.path("/login").filters(f -> f.filter(filter)).uri("lb://PATIENT-SERVICE"))
 				.route("payment-service",
 						r -> r.path("/payment/**").filters(f -> f.filter(filter)).uri("lb://PAYMENT-SERVICE"))
 				.route("diets-groups-service",
