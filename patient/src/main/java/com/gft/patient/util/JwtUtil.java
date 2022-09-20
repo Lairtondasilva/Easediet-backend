@@ -2,13 +2,12 @@ package com.gft.patient.util;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.gft.patient.data.PatientDetailsData;
 import com.gft.patient.exception.JwtTokenMalformedException;
 import com.gft.patient.exception.JwtTokenMissingException;
-import com.gft.patient.models.UserLogin;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -34,19 +33,36 @@ public class JwtUtil {
         return null;
     }
 
-    public String generateToken(PatientDetailsData userLogin) {
-        Claims claims = Jwts.claims().setSubject(userLogin.toString());
-        long nowMillis = System.currentTimeMillis();
-        long expMillis = nowMillis + tokenValidity;
-        Date exp = new Date(expMillis);
-        return Jwts.builder().setClaims(claims).setIssuedAt(new Date(nowMillis)).setExpiration(exp)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+    public String generateJwtToken(Authentication authentication) {
+
+        PatientDetailsData userPrincipal = (PatientDetailsData) authentication.getPrincipal();
+
+        return Jwts.builder()
+                .setSubject((userPrincipal.getUsername()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + tokenValidity))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
     }
 
-    public void validateToken(final String token)
+    public String generateTokenFromUsername(String username) {
+        return Jwts.builder().setSubject(username).setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + tokenValidity))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
+
+    public String getUserNameFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public boolean validateToken(final String token)
             throws JwtTokenMalformedException, com.gft.patient.exception.JwtTokenMissingException {
         try {
+
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
+
         } catch (SignatureException ex) {
             throw new JwtTokenMalformedException("Invalid JWT signature");
         } catch (MalformedJwtException ex) {

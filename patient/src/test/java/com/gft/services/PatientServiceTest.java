@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.joda.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.patient.models.PatientModel;
+import com.gft.patient.models.Roles;
 import com.gft.patient.repositories.PatientRepository;
 import com.gft.patient.service.PatientService;
 
@@ -35,12 +35,12 @@ public class PatientServiceTest {
     private PatientModel patient1 = new PatientModel(UUID.fromString("076beb2a-20eb-4cc2-951e-6c121d714f2b"), "Lairton",
             "Lairton@gmail.com", "12345678",
             Double.valueOf(1.75), 65.2, 22, 0.65, "fasdf", "free",
-            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), "patient");
+            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), new Roles("PATIENT"));
 
     private PatientModel patient2 = new PatientModel(UUID.fromString("15648ea9-6482-4b78-9d61-48285a026348"), "Lairton",
             "Lairton@gmail.com", "12345678",
             Double.valueOf(1.75), 65.2, 22, 0.65, "fasdf", "free",
-            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), "patient");
+            "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), new Roles("PATIENT"));
 
     @Test
     public void registerPatientTest() {

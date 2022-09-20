@@ -2,37 +2,54 @@ package com.gft.patient.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gft.patient.models.PatientModel;
+import com.gft.patient.models.Roles;
+import com.gft.patient.models.UserLogin;
 
+import lombok.Data;
+
+@Data
 public class PatientDetailsData implements UserDetails {
 
-    private final Optional<PatientModel> patientModel;
+    private UUID id;
 
-    public PatientDetailsData(Optional<PatientModel> patientModel) {
-        this.patientModel = patientModel;
+    private String email;
+
+    @JsonIgnore
+    private String password;
+
+    private Collection<? extends GrantedAuthority> authorities;
+
+    public PatientDetailsData(UUID id, String email, String password, List<Roles> authorities) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        return new ArrayList<>();
+        return authorities;
     }
 
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub
-        return patientModel.orElse(new PatientModel()).getPassword();
+        return this.password;
     }
 
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
-        return patientModel.orElse(new PatientModel()).getEmail();
+        return this.email;
     }
 
     @Override
