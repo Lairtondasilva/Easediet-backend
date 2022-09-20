@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -84,5 +85,5 @@ public class PatientModel {
     @Column(name = "group_id")
     private UUID groupId;
 
-    private String role = "patient";
+    private Roles roles = new Roles("PATIENT");
 }

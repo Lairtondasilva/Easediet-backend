@@ -1,5 +1,6 @@
 package com.gft.patient.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.gft.patient.data.PatientDetailsData;
 import com.gft.patient.models.PatientModel;
+import com.gft.patient.models.Roles;
+import com.gft.patient.models.UserLogin;
 import com.gft.patient.repositories.PatientRepository;
 
 @Component
@@ -26,7 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (patientModel.isEmpty()) {
             throw new UsernameNotFoundException("Username [" + username + "] not found!!");
         }
-        return new PatientDetailsData(patientModel);
+
+        return new PatientDetailsData(patientModel.get().getId(), patientModel.get().getEmail(),
+                patientModel.get().getPassword(), List.of(patientModel.get().getRoles()));
     }
 
 }
