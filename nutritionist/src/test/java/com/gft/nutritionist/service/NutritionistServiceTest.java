@@ -2,7 +2,6 @@ package com.gft.nutritionist.service;
 
 import java.util.UUID;
 
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +24,6 @@ public class NutritionistServiceTest {
     NutritionistModel nutritionistModelTest = new NutritionistModel(UUID.randomUUID(),
             "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy", null, null);
 
-    @Order(1)
     @Test
     public void checkIfNutritionistExistTest() {
 
