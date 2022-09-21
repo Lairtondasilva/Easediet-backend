@@ -30,8 +30,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.gft.patient.data.PatientDetailsData;
-import com.gft.patient.exception.JwtTokenMalformedException;
-import com.gft.patient.exception.JwtTokenMissingException;
 import com.gft.patient.exception.TokenRefreshException;
 import com.gft.patient.models.PatientModel;
 import com.gft.patient.models.RefreshToken;

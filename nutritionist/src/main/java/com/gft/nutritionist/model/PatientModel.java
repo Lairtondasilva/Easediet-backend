@@ -1,8 +1,8 @@
 package com.gft.nutritionist.model;
 
-
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -46,4 +46,6 @@ public class PatientModel {
     private UUID dietId;
 
     private UUID groupId;
+
+    private List<Roles> roles;
 }

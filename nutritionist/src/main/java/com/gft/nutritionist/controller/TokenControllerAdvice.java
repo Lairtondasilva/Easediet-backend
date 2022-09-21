@@ -1,4 +1,4 @@
-package com.gft.patient.controllers;
+package com.gft.nutritionist.controller;
 
 import java.util.Date;
 
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import com.gft.patient.exception.TokenRefreshException;
+import com.gft.nutritionist.exception.TokenRefreshException;
 
 @RestControllerAdvice
 public class TokenControllerAdvice {
 
-    @ExceptionHandler(value = com.gft.patient.exception.TokenRefreshException.class)
+    @ExceptionHandler(value = TokenRefreshException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorMessage handleTokenRefreshException(TokenRefreshException ex, WebRequest request) {
         return new ErrorMessage(
