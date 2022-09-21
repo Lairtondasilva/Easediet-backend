@@ -32,21 +32,23 @@ public class NutritionistService {
         }
         return false;
     }
-    
-    public Optional<NutritionistModel> updateNutritionist (NutritionistModel nutritionist) {
-        if (nutritionistRepository.findById(nutritionist.getId()).isPresent()){
-            Optional<NutritionistModel> findNutritionistEmail = nutritionistRepository.findByEmailContainingIgnoreCase(nutritionist.getEmail());
 
-            // Se o email já existe e o ID é diferente, significa que passei o email de outro usuario já cadastrado
-            if (findNutritionistEmail.isPresent() && findNutritionistEmail.get().getId() != nutritionist.getId()){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user is already registered at the database!",null);
+    public Optional<NutritionistModel> updateNutritionist(NutritionistModel nutritionist) {
+        if (nutritionistRepository.findById(nutritionist.getId()).isPresent()) {
+            Optional<NutritionistModel> findNutritionistEmail = nutritionistRepository
+                    .findByEmailContainingIgnoreCase(nutritionist.getEmail());
+
+            // Se o email já existe e o ID é diferente, significa que passei o email de
+            // outro usuario já cadastrado
+            if (findNutritionistEmail.isPresent() && findNutritionistEmail.get().getId() != nutritionist.getId()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "This user is already registered at the database!", null);
             }
 
-                //nutritionist.setPassword(passwordEncryption(nutritionist.getPassword()));
+            // nutritionist.setPassword(passwordEncryption(nutritionist.getPassword()));
         }
         return Optional.of(nutritionistRepository.save(nutritionist));
     }
-        
 
     private String passwordEncryption(String password) {
 

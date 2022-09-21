@@ -3,6 +3,7 @@ package com.gft.nutritionist.model;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,6 +41,7 @@ public class NutritionistModel {
 
     @NotNull(message = "O campo e-mail é obrigatório!")
     @Email(message = "O campo Usuário deve ser um e-mail válido!")
+    @Column(unique = true)
     private String email;
 
     @NotNull
@@ -54,4 +56,6 @@ public class NutritionistModel {
 
     @Transient
     List<DietModel> diets;
+
+    private Roles roles = new Roles("NUTRITIONIST");
 }

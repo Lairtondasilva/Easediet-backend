@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gft.nutritionist.model.NutritionistModel;
+import com.gft.nutritionist.model.Roles;
 
 //@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -29,7 +30,7 @@ public class NutritionistRepositoryTest {
                 "111111",
                 "miriam.pacheco@nutri.com",
                 "12345678",
-                "Healthy", null, null);
+                "Healthy", null, null, new Roles("NUTRITIONIST"));
 
         nutritionistRepositoryTest.save(nutri1);
     }
