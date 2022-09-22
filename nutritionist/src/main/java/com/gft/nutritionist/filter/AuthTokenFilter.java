@@ -1,6 +1,8 @@
 package com.gft.nutritionist.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.FilterChain;
@@ -14,12 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.gft.nutritionist.data.NutritionistDetails;
+import com.gft.nutritionist.model.FoodModel;
+import com.gft.nutritionist.model.Roles;
+import com.gft.nutritionist.services.PatientService;
 import com.gft.nutritionist.services.UserDetailsServiceImpl;
 import com.gft.nutritionist.util.JwtUtil;
+
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -27,6 +37,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private PatientService patientService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -48,9 +61,22 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (AuthenticationException e) {
+        } catch (UsernameNotFoundException | AuthenticationException e) {
+            String jwt = parseJwt(request);
 
-            response.getWriter().write(e.getMessage());
+            String username = jwtUtil.getUserNameFromJwtToken(jwt);
+
+            var patientUser = patientService.findByPatientEmail(username).get();
+
+            var userDetails = new NutritionistDetails(patientUser.getId(), patientUser.getEmail(),
+                    patientUser.getPassword(),
+                    List.of(new Roles(patientUser.getRole())));
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
         }
 
         filterChain.doFilter(request, response);

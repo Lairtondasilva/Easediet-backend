@@ -57,5 +57,5 @@ public class NutritionistModel {
     @Transient
     List<DietModel> diets;
 
-    private Roles roles = new Roles("NUTRITIONIST");
+    private String role = "NUTRITIONIST";
 }

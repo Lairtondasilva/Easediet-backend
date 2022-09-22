@@ -1,23 +1,5 @@
-<<<<<<< HEAD
-=======
-server:
-  port: 8081
-eureka:
-  instance:
-    hostname: localhost
-    preferIpAddress: true
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8762/eureka
-    registerWithEureka: true
-    fetchRegistry: true
-    
->>>>>>> 33efb005559eb46decda0520ffd2ea7b86ad2332
 spring:
   application:
     name: nutritionist
   config:
     import: optional:configserver:http://localhost:8888
-jwt:
-  private.key: classpath:app.key
-  public.key: classpath:app.pub

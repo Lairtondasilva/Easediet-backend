@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -104,6 +106,11 @@ public class PatientController {
                         "Refresh token is not in database!"));
     }
 
+    @GetMapping("/email/{email}")
+    public Optional<PatientModel> findByPatientEmail(@PathVariable("email") String email) {
+        return patientRepository.findByEmailContainingIgnoreCase(email);
+    }
+
     @Retry(name = "default")
     @GetMapping("/all")
     public ResponseEntity<List<PatientModel>> getAll() {
@@ -116,16 +123,16 @@ public class PatientController {
         return patientService.getPatientById(id);
     }
 
-    @GetMapping("/diet-groups/{dietsGroupsId}")
+    @GetMapping("/diets-groups/{dietGroupId}")
     @Retry(name = "default", fallbackMethod = "getAllByGroupIdFail")
-    public ResponseEntity<List<PatientModel>> getAllByGroupId(@PathVariable UUID dietsGroupsId) {
+    public ResponseEntity<List<PatientModel>> getAllByGroupId(@PathVariable UUID dietGroupId) {
         // var resp = new RestTemplate().getForEntity("http://localhost:8080/food",
         // String.class);
-        return patientService.getAllPatientsByGroupId(dietsGroupsId);
+        return patientService.getAllPatientsByGroupId(dietGroupId);
     }
 
-    public ResponseEntity<String> getAllByGroupIdFail(Exception e) {
-        return ResponseEntity.badRequest().body("The service is currently unavailable.");
+    public ResponseEntity<PatientModel> getAllByGroupIdFail(Exception e) {
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping("/register")

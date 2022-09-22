@@ -1,13 +1,17 @@
 package com.gft.nutritionist.util;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.gft.nutritionist.data.NutritionistDetails;
 import com.gft.nutritionist.exception.JwtTokenMalformedException;
 import com.gft.nutritionist.exception.JwtTokenMissingException;
+import com.gft.nutritionist.repository.NutritionistRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -20,8 +24,11 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtUtil {
 
-    public static final int tokenValidity = 600_000;
+    public static final int tokenValidity = 6_000_000;
     public static final String jwtSecret = "4e21dd7a-d685-4929-a76b-c2f0eb84f3af";
+
+    @Autowired
+    private NutritionistRepository nutritionistRepository;
 
     public Claims getClaims(final String token) {
         try {
@@ -36,8 +43,11 @@ public class JwtUtil {
     public String generateJwtToken(Authentication authentication) {
 
         NutritionistDetails userPrincipal = (NutritionistDetails) authentication.getPrincipal();
+        Map<String, Object> roles = new HashMap<>();
 
+        roles.put("role", userPrincipal.getAuthorities().stream().map(t -> t.getAuthority()).toList().get(0));
         return Jwts.builder()
+                .setClaims(roles)
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + tokenValidity))
@@ -46,7 +56,13 @@ public class JwtUtil {
     }
 
     public String generateTokenFromUsername(String username) {
-        return Jwts.builder().setSubject(username).setIssuedAt(new Date())
+        Map<String, Object> roles = new HashMap<>();
+        var userPrincipal = nutritionistRepository.findByEmailContainingIgnoreCase(username).get();
+        roles.put("role", userPrincipal.getRole());
+        return Jwts.builder()
+                .setClaims(roles)
+                .setSubject(username)
+                .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + tokenValidity))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();

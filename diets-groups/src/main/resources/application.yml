@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-=======
-server:
-  port: 8084
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8762/eureka
-    registerWithEureka: true
-    fetchRegistry: true
-    
-resilience4j:
-  ratelimiter:
-    instances:
-      default:
-        limit-for-period: 2
-        limit-refresh-period: 10s
-  retry:
-    instances:
-      default:
-        max-attempts: 3
-        wait-duration: 1s
-  circuitBreaker:
-    instances:
-      default:
-        failureRateThreshold: 40
-
->>>>>>> 33efb005559eb46decda0520ffd2ea7b86ad2332
 spring:
   application:
     name: diets-groups

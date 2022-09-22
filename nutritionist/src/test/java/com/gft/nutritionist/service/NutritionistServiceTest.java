@@ -33,12 +33,8 @@ public class NutritionistServiceTest {
     private NutritionistService nutritionistService;
 
     NutritionistModel nutritionist1 = new NutritionistModel(UUID.randomUUID(),
-    "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy", null, null,
-    new Roles("NUTRITIONIST"));    
-
-    NutritionistModel nutritionist2 = new NutritionistModel(UUID.randomUUID(),
-    "Miriam Pacheco Buarque", "222222", "miriam.pacheco@nutri.com", "12345678", "Bulking", null, null,
-    new Roles("NUTRITIONIST"));
+            "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy", null, null,
+            "NUTRITIONIST");
 
     @Test
     public void registerTheSameUserTwice() {
