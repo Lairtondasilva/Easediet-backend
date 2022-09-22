@@ -3,6 +3,8 @@ package com.gft.dietsgroups.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -46,4 +48,23 @@ public class DietGroupControllerTest {
 
                 assertEquals(HttpStatus.OK, response.getStatusCode());
     }
+
+    @Test
+    public void createGroup() throws URISyntaxException {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        final String baseUrl = "http://localhost:8084/diets-groups";
+        URI uri = new URI(baseUrl);
+
+        DietGroupModel dietGroup = new DietGroupModel(
+            UUID.randomUUID(), "Grande", "Cresce", "Teste", 1000.5, 855.9, UUID.randomUUID(), UUID.randomUUID(), null
+        );
+
+        ResponseEntity<String> result = restTemplate.postForEntity(uri, dietGroup, String.class);
+
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+                
+    }
+
 }
