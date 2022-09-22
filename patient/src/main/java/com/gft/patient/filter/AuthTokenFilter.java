@@ -1,6 +1,7 @@
 package com.gft.patient.filter;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.FilterChain;
@@ -18,10 +19,14 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.gft.patient.data.PatientDetailsData;
+import com.gft.patient.models.Roles;
+import com.gft.patient.service.NutritionistService;
 import com.gft.patient.service.UserDetailsServiceImpl;
 import com.gft.patient.util.JwtUtil;
 
@@ -31,6 +36,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private NutritionistService nutritionistService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -52,9 +60,24 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException | UsernameNotFoundException e) {
+            String jwt = parseJwt(request);
+            String email = jwtUtil.getUserNameFromJwtToken(jwt);
+            var nutritionistUser = nutritionistService.findNutritionistByEmail(email);
+            if (nutritionistUser.isEmpty())
+                response.getWriter().write("Não existe nenhum paciente cadastrado!!!");
 
-            response.getWriter().write(e.getMessage());
+            var nutritionist = nutritionistUser.get();
+
+            UserDetails userDetails = new PatientDetailsData(nutritionist.getId(), nutritionist.getEmail(),
+                    nutritionist.getPassword(), List.of(new Roles(nutritionist.getRole())));
+            System.out.println(userDetails);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
         }
 
         filterChain.doFilter(request, response);

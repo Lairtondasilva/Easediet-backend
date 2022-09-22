@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.nutritionist.data.NutritionistDetails;
@@ -100,6 +101,11 @@ public class NutritionistController {
         return nutritionistRepository.findAll();
     }
 
+    @GetMapping("/email/{email}")
+    public Optional<NutritionistModel> findNutritionistByEmail(@PathVariable(name = "email") String email) {
+        return nutritionistRepository.findByEmailContainingIgnoreCase(email);
+    }
+
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
@@ -115,23 +121,8 @@ public class NutritionistController {
     }
 
     @GetMapping("/{nutritionistId}")
-    @CircuitBreaker(name = "default")
     @Retry(name = "default")
     public ResponseEntity<NutritionistModel> getNutritionistById(@PathVariable UUID nutritionistId) {
-
-        // var nutritionist = new NutritionistModel(UUID.randomUUID(), "Ingrid",
-        // "1234-5",
-        // "Ingrid@gmail.com", "12345678", "Healthy", null, null);
-
-        // var groups =
-        // dietsGroupsService.findDietsGroupsByNutritionistId(nutritionistId);
-        // nutritionist.setDietsGroups(groups);
-
-        // var diets = dietService.findDietByNutritionistId(nutritionistId);
-        // nutritionist.setDiets(diets);
-
-        // return nutritionist;
-
         return nutritionistRepository.findById(nutritionistId).map(nutri -> {
             var groups = dietGroupService.findDietsGroupsByNutritionistId(nutri.getId());
             nutri.setDietGroups(groups);
@@ -162,6 +153,7 @@ public class NutritionistController {
     @DeleteMapping("/{nutritionistId}")
     @Retry(name = "default")
     public void nutritionistDelete(@PathVariable UUID nutritionistId) {
+        refreshTokenService.deleteByNutritionist(nutritionistRepository.findById(nutritionistId).get());
         nutritionistRepository.deleteById(nutritionistId);
     }
 

@@ -46,7 +46,7 @@ public class PatientControllerTest {
         PatientModel patient = new PatientModel(UUID.fromString("15648ea9-6482-4b78-9d61-48285a026348"), "Lairton",
                 "Lairton@gmail.com", "12345678",
                 Double.valueOf(1.75), 65.2, 22, 0.65, "fasdf", "free",
-                "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), new Roles("PATIENT"));
+                "fgkasdfasd", null, UUID.randomUUID(), UUID.randomUUID(), "PATIENT");
         when(patientService.getAllPatients()).thenReturn(ResponseEntity.ok(List.of(patient)));
 
         List<PatientModel> patients = new ArrayList();

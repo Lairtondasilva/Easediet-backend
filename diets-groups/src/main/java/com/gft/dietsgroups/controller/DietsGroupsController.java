@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,8 +27,6 @@ import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
 @RequestMapping("/diets-groups")
-@CircuitBreaker(name = "default")
-@Retry(name = "default")
 public class DietsGroupsController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class DietsGroupsController {
         return ResponseEntity.ok(dietGroupRepository.findAll());
     }
 
-    @GetMapping("/{dietsGroupsId}")
+    @GetMapping("/{dietGroupId}")
     public ResponseEntity<DietGroupModel> findById(@PathVariable UUID dietGroupId) {
         return dietGroupRepository.findById(dietGroupId).map(group -> {
             var patients = patientService.findPatientByDietsGroupsId(group.getId());
@@ -49,14 +49,15 @@ public class DietsGroupsController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/nutritionist/{nutritionistId}")
-    @Retry(name = "default", fallbackMethod = "getDietsGroupsByNutritionistIdFail")
-    public ResponseEntity<List<DietGroupModel>> getDietsGroupsByNutritionistId(@PathVariable UUID nutritionistId) {
-        return ResponseEntity.ok(dietGroupRepository.findAllByNutritionistId(nutritionistId));
+    // @Retry(name = "default", fallbackMethod =
+    // "getDietsGroupsByNutritionistIdFail")
+    @GetMapping(value = "/nutritionist/{nutritionistId}")
+    public List<DietGroupModel> findDietsGroupsByNutritionistId(@PathVariable UUID nutritionistId) {
+        return dietGroupRepository.findAllByNutritionistId(nutritionistId);
     }
 
-    public ResponseEntity<List<DietGroupModel>> getDietsGroupsByNutritionistId() {
-        return ResponseEntity.badRequest().body(null);
+    public List<DietGroupModel> getDietsGroupsByNutritionistIdFail() {
+        return List.of(null);
     }
 
     @PostMapping

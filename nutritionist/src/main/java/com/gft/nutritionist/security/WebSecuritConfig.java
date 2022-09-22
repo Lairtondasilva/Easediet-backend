@@ -49,8 +49,9 @@ public class WebSecuritConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/nutritionist/register").permitAll()
                 .antMatchers("/nutritionist/login").permitAll()
                 .antMatchers("/nutritionist/refreshtoken").permitAll()
-                .antMatchers("/nutritionist/all").permitAll()
-                .anyRequest().permitAll();
+                .antMatchers("/nutritionist/email/{email}").permitAll()
+                .antMatchers("/nutritionist/{nutritionistId}").permitAll()
+                .anyRequest().hasAnyAuthority("NUTRITIONIST");
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
