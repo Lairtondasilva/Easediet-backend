@@ -14,6 +14,6 @@ import com.gft.dietsgroups.models.PatientModel;
 @Service
 public interface PatientService {
 
-    @GetMapping(value = "/patient/diets-groups/{dietsGroupsId}")
-    List<PatientModel> findPatientByDietsGroupsId(@PathVariable UUID dietsGroupsId);
+    @GetMapping(value = "/patient/diets-groups/{dietGroupId}")
+    List<PatientModel> findPatientByDietsGroupsId(@PathVariable UUID dietGroupId);
 }

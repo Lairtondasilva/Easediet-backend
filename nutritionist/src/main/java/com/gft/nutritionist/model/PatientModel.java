@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Transient;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,5 +49,5 @@ public class PatientModel {
 
     private UUID groupId;
 
-    private List<Roles> roles;
+    private String role;
 }

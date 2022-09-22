@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         return new PatientDetailsData(patientModel.get().getId(), patientModel.get().getEmail(),
-                patientModel.get().getPassword(), List.of(patientModel.get().getRoles()));
+                patientModel.get().getPassword(), List.of(new Roles(patientModel.get().getRole())));
     }
 
 }

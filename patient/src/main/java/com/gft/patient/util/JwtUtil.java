@@ -1,13 +1,21 @@
 package com.gft.patient.util;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.gft.patient.data.PatientDetailsData;
 import com.gft.patient.exception.JwtTokenMalformedException;
 import com.gft.patient.exception.JwtTokenMissingException;
+import com.gft.patient.models.Roles;
+import com.gft.patient.repositories.PatientRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -16,12 +24,15 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.impl.DefaultClaims;
 
 @Component
 public class JwtUtil {
 
-    public static final int tokenValidity = 600_000;
+    public static final int tokenValidity = 6_000_000;
     public static final String jwtSecret = "4e21dd7a-d685-4929-a76b-c2f0eb84f3af";
+    @Autowired
+    private PatientRepository patientRepository;
 
     public Claims getClaims(final String token) {
         try {
@@ -36,8 +47,12 @@ public class JwtUtil {
     public String generateJwtToken(Authentication authentication) {
 
         PatientDetailsData userPrincipal = (PatientDetailsData) authentication.getPrincipal();
+        Map<String, Object> roles = new HashMap<>();
+
+        roles.put("role", userPrincipal.getAuthorities().stream().map(t -> t.getAuthority()).toList().get(0));
 
         return Jwts.builder()
+                .setClaims(roles)
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + tokenValidity))
@@ -46,7 +61,13 @@ public class JwtUtil {
     }
 
     public String generateTokenFromUsername(String username) {
-        return Jwts.builder().setSubject(username).setIssuedAt(new Date())
+        Map<String, Object> roles = new HashMap<>();
+        var userPrincipal = patientRepository.findByEmailContainingIgnoreCase(username).get();
+        roles.put("role", userPrincipal.getRole());
+        return Jwts.builder()
+                .setClaims(roles)
+                .setSubject(username)
+                .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + tokenValidity))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();

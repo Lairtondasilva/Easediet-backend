@@ -39,10 +39,10 @@ spring:
       #     uri: lb://DIETS-GROUPS-SERVICE
       #     predicates:
       #       - Path=/diets-groups/**
-      #   - id: nutritionist-service
-      #     uri: lb://NUTRITIONIST-SERVICE
-      #     predicates:
-      #       - Path=/nutritionist/**
+      # - id: nutritionist-service
+      #   uri: lb://NUTRITIONIST-SERVICE
+      #   predicates:
+      #     - Path=/nutritionist/**
       #   - id: patient-service
       #     uri: lb://PATIENT-SERVICE
       #     predicates:

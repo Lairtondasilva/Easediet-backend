@@ -12,6 +12,6 @@ import com.gft.nutritionist.model.DietGroupModel;
 @FeignClient(name = "diets-groups-service")
 public interface DietGroupService {
 
-    @GetMapping(value = "/diet-groups/nutritionist/{nutritionistId}")
-    List<DietGroupModel> findDietsGroupsByNutritionistId(@PathVariable("nutritionistId") UUID nutritionistId);
+    @GetMapping(value = "/diets-groups/nutritionist/{nutritionistId}")
+    List<DietGroupModel> findDietsGroupsByNutritionistId(@PathVariable UUID nutritionistId);
 }

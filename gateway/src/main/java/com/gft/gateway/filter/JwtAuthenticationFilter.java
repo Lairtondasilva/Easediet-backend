@@ -1,6 +1,8 @@
 package com.gft.gateway.filter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,25 @@ public class JwtAuthenticationFilter implements GatewayFilter {
 		ServerHttpRequest request = (ServerHttpRequest) exchange.getRequest();
 		// String atributte = request.getHeaders().get("Authorization").get(0);
 
-		final List<String> apiEndpoints = List.of("/register", "/login");
+		final List<String> apiEndpoints = List.of("/register", "/login", "refreshtoken");
+		final Map<String, List<String>> nutritionistEndPoints = new HashMap<>();
+		nutritionistEndPoints.put("POST", List.of("/diets", "/diets-groups", "/nutritionist", "payment"));
+		nutritionistEndPoints.put("GET",
+				List.of("/patient", "/nutritionist/all", "/diets-groups/all", "/diets/all",
+						"/payment/all"));
+		nutritionistEndPoints.put("PUT", List.of("/nutritionist", "/diets", "/diets-groups"));
+		nutritionistEndPoints.put("DELETE",
+				List.of("/nutritionist", "/payment", "/diets", "/diets-groups", "/patient"));
 
 		Predicate<ServerHttpRequest> isApiSecured = r -> apiEndpoints.stream()
+				.noneMatch(uri -> r.getURI().getPath().contains(uri));
+		Predicate<ServerHttpRequest> isNutritionistPostSecured = r -> nutritionistEndPoints.get("POST").stream()
+				.noneMatch(uri -> r.getURI().getPath().contains(uri));
+		Predicate<ServerHttpRequest> isNutritionistGetSecured = r -> nutritionistEndPoints.get("GET").stream()
+				.noneMatch(uri -> r.getURI().getPath().contains(uri));
+		Predicate<ServerHttpRequest> isNutritionistPutSecured = r -> nutritionistEndPoints.get("PUT").stream()
+				.noneMatch(uri -> r.getURI().getPath().contains(uri));
+		Predicate<ServerHttpRequest> isNutritionistDeleteSecured = r -> nutritionistEndPoints.get("DELETE").stream()
 				.noneMatch(uri -> r.getURI().getPath().contains(uri));
 
 		if (isApiSecured.test(request)) {
@@ -64,7 +82,35 @@ public class JwtAuthenticationFilter implements GatewayFilter {
 			}
 
 			Claims claims = jwtUtil.getClaims(token);
-			exchange.getRequest().mutate().header("id", String.valueOf(claims.get("id"))).build();
+
+			if (!isNutritionistPostSecured.test(request) && claims.containsValue("PATIENT")
+					&& request.getMethodValue().equals("POST")) {
+				ServerHttpResponse response = exchange.getResponse();
+				response.setStatusCode(HttpStatus.UNAUTHORIZED);
+				return response.setComplete();
+			}
+
+			if (!isNutritionistGetSecured.test(request) && claims.containsValue("PATIENT")
+					&& request.getMethodValue().equals("GET")) {
+				ServerHttpResponse response = exchange.getResponse();
+				response.setStatusCode(HttpStatus.UNAUTHORIZED);
+				return response.setComplete();
+			}
+
+			if (!isNutritionistPutSecured.test(request) && claims.containsValue("PATIENT")
+					&& request.getMethodValue().equals("PUT")) {
+				ServerHttpResponse response = exchange.getResponse();
+				response.setStatusCode(HttpStatus.UNAUTHORIZED);
+				return response.setComplete();
+			}
+
+			if (!isNutritionistDeleteSecured.test(request) && claims.containsValue("PATIENT")
+					&& request.getMethodValue().equals("DELETE")) {
+				ServerHttpResponse response = exchange.getResponse();
+				response.setStatusCode(HttpStatus.UNAUTHORIZED);
+				return response.setComplete();
+			}
+
 		}
 
 		return chain.filter(exchange);
