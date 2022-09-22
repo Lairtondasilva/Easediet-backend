@@ -59,10 +59,10 @@ public class NutritionistServiceTest {
         when(nutritionistRepository.findByEmailContainingIgnoreCase("lairton@gmail.com")).thenReturn(Optional.of(nutritionist1));
         when(nutritionistRepository.findByEmailContainingIgnoreCase("Andrei@gmail.com")).thenReturn(Optional.empty());
 
-        var ExistPatient = nutritionistService.checkIfNutritionistExists("lairton@gmail.com");
-        var NoExistPatient = nutritionistService.checkIfNutritionistExists("Andrei@gmail.com");
+        var ExistingNutritionist = nutritionistService.checkIfNutritionistExists("lairton@gmail.com");
+        var NoExistingNutritionist = nutritionistService.checkIfNutritionistExists("Andrei@gmail.com");
 
-        assertTrue(ExistPatient);
-        assertFalse(NoExistPatient);
+        assertTrue(ExistingNutritionist);
+        assertFalse(NoExistingNutritionist);
     }
 }
