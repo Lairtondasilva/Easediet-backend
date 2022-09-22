@@ -19,10 +19,10 @@ resilience4j:
       default:
         max-attempts: 3
         wait-duration: 1s
-  circuit-breaker:
+  circuitBreaker:
     instances:
       default:
-        falhe-rate-threshold: 40
+        failureRateThreshold: 40
 
 spring:
   application:

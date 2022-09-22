@@ -3,12 +3,18 @@ package com.gft.nutritionist.controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +25,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gft.nutritionist.data.NutritionistDetails;
+import com.gft.nutritionist.exception.TokenRefreshException;
 import com.gft.nutritionist.model.NutritionistModel;
+import com.gft.nutritionist.model.RefreshToken;
+import com.gft.nutritionist.model.UserLogin;
+import com.gft.nutritionist.payload.JWTResponse;
+import com.gft.nutritionist.payload.TokenRefreshRequest;
+import com.gft.nutritionist.payload.TokenRefreshResponse;
 import com.gft.nutritionist.repository.NutritionistRepository;
 import com.gft.nutritionist.services.DietGroupService;
 import com.gft.nutritionist.services.DietService;
 import com.gft.nutritionist.services.NutritionistService;
+import com.gft.nutritionist.services.RefreshTokenService;
+import com.gft.nutritionist.util.JwtUtil;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -31,8 +46,6 @@ import io.github.resilience4j.retry.annotation.Retry;
 @RestController
 @RequestMapping("/nutritionist")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@CircuitBreaker(name = "default")
-@Retry(name = "default")
 public class NutritionistController {
 
     @Autowired
@@ -45,14 +58,65 @@ public class NutritionistController {
     private DietGroupService dietGroupService;
 
     @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
     private DietService dietService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private RefreshTokenService refreshTokenService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/login")
+    public ResponseEntity<JWTResponse> login(@RequestBody UserLogin userLogin) {
+        Authentication authentication = authenticationManager
+                .authenticate(
+                        new UsernamePasswordAuthenticationToken(userLogin.getEmail(), userLogin.getPassword(),
+                                null));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtUtil.generateJwtToken(authentication);
+        NutritionistDetails userDetails = (NutritionistDetails) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+        RefreshToken tokenRefresh = refreshTokenService.createRefreshToken(userDetails.getId());
+        var response = new JWTResponse(jwt,
+                tokenRefresh.getToken(),
+                userDetails.getEmail(),
+                roles);
+        return ResponseEntity.ok(response);
+
+    }
+
     @GetMapping("/all")
-    public ResponseEntity<List<NutritionistModel>> getAllNutritionists() {
-        return ResponseEntity.ok(nutritionistRepository.findAll());
+    public List<NutritionistModel> findAll() {
+        return nutritionistRepository.findAll();
+    }
+
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
+        String requestRefreshToken = request.getRefreshToken();
+
+        return refreshTokenService.findByToken(requestRefreshToken)
+                .map(refreshTokenService::verifyExpiration)
+                .map(RefreshToken::getNutritionist)
+                .map(nutri -> {
+                    String token = jwtUtil.generateTokenFromUsername(nutri.getEmail());
+                    return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+                }).orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
+                        "Refresh token is not in database!"));
     }
 
     @GetMapping("/{nutritionistId}")
+    @CircuitBreaker(name = "default")
+    @Retry(name = "default")
     public ResponseEntity<NutritionistModel> getNutritionistById(@PathVariable UUID nutritionistId) {
 
         // var nutritionist = new NutritionistModel(UUID.randomUUID(), "Ingrid",
@@ -79,6 +143,7 @@ public class NutritionistController {
     @PostMapping("/register")
     public ResponseEntity<Optional<NutritionistModel>> nutritionistRegisterPost(
             @RequestBody NutritionistModel nutritionist) {
+        nutritionist.setPassword(passwordEncoder.encode(nutritionist.getPassword()));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(nutritionistService.registerNutritionist(nutritionist));
     }
@@ -86,13 +151,16 @@ public class NutritionistController {
     // @PostMapping("/login")
 
     @PutMapping("/update")
+    @CircuitBreaker(name = "default")
+    @Retry(name = "default")
     public ResponseEntity<NutritionistModel> nutritionistUpdatePut(@Valid @RequestBody NutritionistModel nutritionist) {
         return nutritionistService.updateNutritionist(nutritionist)
                 .map(response -> ResponseEntity.ok(response))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{nutritionistId}")
+    @Retry(name = "default")
     public void nutritionistDelete(@PathVariable UUID nutritionistId) {
         nutritionistRepository.deleteById(nutritionistId);
     }

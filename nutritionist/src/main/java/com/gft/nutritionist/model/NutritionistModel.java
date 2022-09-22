@@ -43,6 +43,7 @@ public class NutritionistModel {
 
     @NotNull(message = "O campo e-mail é obrigatório!")
     @Email(message = "O campo Usuário deve ser um e-mail válido!")
+    @Column(unique = true)
     private String email;
 
     @NotNull
@@ -57,4 +58,6 @@ public class NutritionistModel {
 
     @Transient
     List<DietModel> diets;
+
+    private Roles roles = new Roles("NUTRITIONIST");
 }
