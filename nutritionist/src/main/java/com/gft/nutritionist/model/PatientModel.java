@@ -1,10 +1,8 @@
 package com.gft.nutritionist.model;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

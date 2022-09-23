@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gft.payment.models.PatientModel;
 
 @RequestMapping("/patient")
-@FeignClient("patient-service")
+@FeignClient("patient")
 public interface PatientService {
 
     @GetMapping("/{id}")

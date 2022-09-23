@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.nutritionist.model.NutritionistModel;
-import com.gft.nutritionist.model.Roles;
 import com.gft.nutritionist.repository.NutritionistRepository;
 import com.gft.nutritionist.services.NutritionistService;
 

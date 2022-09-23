@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gft.nutritionist.model.NutritionistModel;
-import com.gft.nutritionist.model.Roles;
 
 //@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -20,7 +19,6 @@ public class NutritionistRepositoryTest {
     @Autowired
     private NutritionistRepository nutritionistRepositoryTest;
 
-    private NutritionistModel nutritionistModelTest;
 
     @BeforeAll
     void start() {

@@ -2,8 +2,6 @@ package com.gft.nutritionist.services;
 
 import java.util.Optional;
 
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.core.HttpHeaders;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -12,10 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gft.nutritionist.model.PatientModel;
 
-import feign.Headers;
-import feign.Param;
 
-@FeignClient(name = "PATIENT-SERVICE")
+@FeignClient(name = "patient")
 @Service
 public interface PatientService {
 
