@@ -18,8 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.gft.dietsgroups.models.DietGroupModel;
-import com.gft.dietsgroups.models.PatientModel;
 import com.gft.dietsgroups.repositories.DietGroupRepository;
 import com.gft.dietsgroups.services.PatientService;
 

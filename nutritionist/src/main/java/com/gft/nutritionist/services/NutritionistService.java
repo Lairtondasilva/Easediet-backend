@@ -17,15 +17,13 @@ public class NutritionistService {
     @Autowired
     private NutritionistRepository nutritionistRepository;
 
-    public Optional<NutritionistModel> registerNutritionist(NutritionistModel nutritionist) {
+    public ResponseEntity<NutritionistModel> registerNutritionist(NutritionistModel nutritionist) {
         if (checkIfNutritionistExists(nutritionist.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already registered e-mail!", null);
         }
-
+        nutritionist.setPassword(passwordEncryption(nutritionist.getPassword()));
         var nutritionistSaved = nutritionistRepository.save(nutritionist);
-
-        return Optional.of(nutritionistSaved);
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(nutritionistSaved);
     }
 
     public boolean checkIfNutritionistExists(String email) {

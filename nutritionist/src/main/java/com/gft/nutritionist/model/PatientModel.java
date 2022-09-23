@@ -1,7 +1,6 @@
 package com.gft.nutritionist.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

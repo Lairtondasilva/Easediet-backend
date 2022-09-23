@@ -17,20 +17,19 @@ public class GatewayConfig {
 	@Bean
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route("auth-service", r -> r.path("/auth/**").filters(f -> f.filter(filter)).uri("lb://AUTH-SERVICE"))
-				.route("diet-service", r -> r.path("/diets/**").filters(f -> f.filter(filter)).uri("lb://DIET-SERVICE"))
-				.route("diet-service",
-						r -> r.path("/translate/**").filters(f -> f.filter(filter)).uri("lb://DIET-SERVICE"))
-				.route("nutritionist-service",
-						r -> r.path("/nutritionist/**").filters(f -> f.filter(filter)).uri("lb://NUTRITIONIST-SERVICE"))
-				.route("patient-service",
-						r -> r.path("/patient/**").filters(f -> f.filter(filter)).uri("lb://PATIENT-SERVICE"))
-				.route("patient-service",
-						r -> r.path("/login").filters(f -> f.filter(filter)).uri("lb://PATIENT-SERVICE"))
-				.route("payment-service",
-						r -> r.path("/payment/**").filters(f -> f.filter(filter)).uri("lb://PAYMENT-SERVICE"))
-				.route("diets-groups-service",
-						r -> r.path("/diets-groups/**").filters(f -> f.filter(filter)).uri("lb://DIETS-GROUPS-SERVICE"))
+				.route("diet", r -> r.path("/diets/**").filters(f -> f.filter(filter)).uri("lb://DIET"))
+				.route("diet",
+						r -> r.path("/translate/**").filters(f -> f.filter(filter)).uri("lb://DIET"))
+				.route("nutritionist",
+						r -> r.path("/nutritionist/**").filters(f -> f.filter(filter)).uri("lb://NUTRITIONIST"))
+				.route("patient",
+						r -> r.path("/patient/**").filters(f -> f.filter(filter)).uri("lb://PATIENT"))
+				.route("patient",
+						r -> r.path("/login").filters(f -> f.filter(filter)).uri("lb://PATIENT"))
+				.route("payment",
+						r -> r.path("/payment/**").filters(f -> f.filter(filter)).uri("lb://PAYMENT"))
+				.route("diets-groups",
+						r -> r.path("/diets-groups/**").filters(f -> f.filter(filter)).uri("lb://DIETS-GROUPS"))
 				.build();
 	}
 }
