@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.patient.models.PatientModel;
-import com.gft.patient.models.Roles;
 import com.gft.patient.repositories.PatientRepository;
 import com.gft.patient.service.PatientService;
 

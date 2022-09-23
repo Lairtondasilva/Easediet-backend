@@ -12,27 +12,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.gft.model.PatientResponses;
 import com.gft.patient.controllers.PatientController;
 import com.gft.patient.models.PatientModel;
-import com.gft.patient.models.Roles;
 import com.gft.patient.repositories.PatientRepository;
 import com.gft.patient.service.PatientService;
 
 @ExtendWith(MockitoExtension.class)
 public class PatientControllerTest {
-
-    @Autowired
-    private WebApplicationContext wac;
 
     @Mock
     private PatientService patientService;

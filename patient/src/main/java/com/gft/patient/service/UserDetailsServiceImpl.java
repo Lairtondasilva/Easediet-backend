@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.gft.patient.data.PatientDetailsData;
 import com.gft.patient.models.PatientModel;
 import com.gft.patient.models.Roles;
-import com.gft.patient.models.UserLogin;
 import com.gft.patient.repositories.PatientRepository;
 
 @Component
