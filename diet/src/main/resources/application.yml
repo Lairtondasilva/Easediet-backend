@@ -1,14 +1,3 @@
-server:
-  port: 8183
-springdoc:
-  show-actuator: true
-  use-management-port: true
-# This property enables the openapi and swagger-ui endpoints to be exposed beneath the actuator base path.
-management:
-  endpoints:
-    web:
-      exposure:
-        include: openapi, swagger-ui
 spring:
   application:
     name: diet

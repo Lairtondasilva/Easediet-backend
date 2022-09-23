@@ -1,4 +1,4 @@
-package com.gft.nutritionist.configuration;
+package com.gft.payment.configuration;
 
 import org.springframework.context.annotation.Bean;
 
@@ -9,23 +9,23 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.License;
 
 @OpenAPIDefinition(info = 
-@Info(title = "Nutritionist Service API",
+@Info(title = "Payment Service API",
     version = "v1",
-    description = "Documentation of Nutritionist Service API"))
+    description = "Documentation of Payment Service API"))
 public class OpenApiConfiguration {
     
     @Bean
-    public OpenAPI custmoOpenAPI() {
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .components(new Components())
             .info(
                 new io.swagger.v3.oas.models.info.Info()
-                .title("Nutritionist Service API")
+                .title("Payment Service API")
                 .version("v1")
                 .license(
                     new License()
-                        .name("Apache 2.0")
-                        .url("http://springdoc.org")
+                    .name("Apache 2.0")
+                    .url("http://springdoc.org")
                 )
             );
     }

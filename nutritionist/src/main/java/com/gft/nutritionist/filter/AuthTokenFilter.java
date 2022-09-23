@@ -1,7 +1,6 @@
 package com.gft.nutritionist.filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.AuthenticationException;
@@ -22,14 +21,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.gft.nutritionist.data.NutritionistDetails;
-import com.gft.nutritionist.model.FoodModel;
 import com.gft.nutritionist.model.Roles;
 import com.gft.nutritionist.services.PatientService;
 import com.gft.nutritionist.services.UserDetailsServiceImpl;
 import com.gft.nutritionist.util.JwtUtil;
-
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.Jwts;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired

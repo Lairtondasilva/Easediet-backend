@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.patient.models.PatientModel;
-import com.gft.patient.models.UserLogin;
 import com.gft.patient.repositories.PatientRepository;
 import com.gft.patient.util.JwtUtil;
 
