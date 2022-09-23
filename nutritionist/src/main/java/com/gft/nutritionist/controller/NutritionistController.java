@@ -43,7 +43,10 @@ import com.gft.nutritionist.util.JwtUtil;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Nutritionist Endpoint")
 @RestController
 @RequestMapping("/nutritionist")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -73,6 +76,7 @@ public class NutritionistController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Operation(summary = "Login Nutritionist")
     @PostMapping("/login")
     public ResponseEntity<JWTResponse> login(@RequestBody UserLogin userLogin) {
         Authentication authentication = authenticationManager
@@ -96,16 +100,19 @@ public class NutritionistController {
 
     }
 
+    @Operation(summary = "FindAll Nutritionists")
     @GetMapping("/all")
     public List<NutritionistModel> findAll() {
         return nutritionistRepository.findAll();
     }
 
+    @Operation(summary = "Find Nutritionist by email")
     @GetMapping("/email/{email}")
     public Optional<NutritionistModel> findNutritionistByEmail(@PathVariable(name = "email") String email) {
         return nutritionistRepository.findByEmailContainingIgnoreCase(email);
     }
 
+    @Operation(summary = "RefreshToken Nutritionist")
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
@@ -120,6 +127,7 @@ public class NutritionistController {
                         "Refresh token is not in database!"));
     }
 
+    @Operation(summary = "Find Nutritionists by Id")
     @GetMapping("/{nutritionistId}")
     @Retry(name = "default")
     public ResponseEntity<NutritionistModel> getNutritionistById(@PathVariable UUID nutritionistId) {
@@ -131,6 +139,7 @@ public class NutritionistController {
 
     }
 
+    @Operation(summary = "Register Nutritionists")
     @PostMapping("/register")
     public ResponseEntity<Optional<NutritionistModel>> nutritionistRegisterPost(
             @RequestBody NutritionistModel nutritionist) {
@@ -141,6 +150,7 @@ public class NutritionistController {
 
     // @PostMapping("/login")
 
+    @Operation(summary = "Update Nutritionists")
     @PutMapping("/update")
     @CircuitBreaker(name = "default")
     @Retry(name = "default")
@@ -150,6 +160,7 @@ public class NutritionistController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Delete Nutritionists by Id")
     @DeleteMapping("/{nutritionistId}")
     @Retry(name = "default")
     public void nutritionistDelete(@PathVariable UUID nutritionistId) {
