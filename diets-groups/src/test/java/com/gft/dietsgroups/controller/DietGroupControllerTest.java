@@ -24,15 +24,16 @@ import com.gft.dietsgroups.services.PatientService;
 @ExtendWith(MockitoExtension.class)
 public class DietGroupControllerTest {
 
-    //A Controller depende da Repository para funcionar
-    @Mock   //Autowired do Mockito
+    // A Controller depende da Repository para funcionar
+    @Mock // Autowired do Mockito
     private DietGroupRepository dietGroupRepositoryTest;
-    
-    //A Service também é um Mock neste caso, porque a Controller depende dela pra funcionar
+
+    // A Service também é um Mock neste caso, porque a Controller depende dela pra
+    // funcionar
     @Mock
     private PatientService patientServiceTest;
 
-    @InjectMocks    //A classe em que eu injeto é a que eu quero testar
+    @InjectMocks // A classe em que eu injeto é a que eu quero testar
     private DietsGroupsController dietGroupController;
 
     @Test
@@ -44,7 +45,7 @@ public class DietGroupControllerTest {
                 "http://localhost:8084/diets-groups/all",
                 dietsGroups.getClass());
 
-                assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -56,13 +57,13 @@ public class DietGroupControllerTest {
         URI uri = new URI(baseUrl);
 
         DietGroupModel dietGroup = new DietGroupModel(
-            UUID.randomUUID(), "Grande", "Cresce", "Teste", 1000.5, 855.9, UUID.randomUUID(), UUID.randomUUID(), null
-        );
+                UUID.randomUUID(), "Grande", "Cresce", "Teste", 1000.5, 855.9, UUID.randomUUID(), UUID.randomUUID(),
+                null);
 
         ResponseEntity<String> result = restTemplate.postForEntity(uri, dietGroup, String.class);
 
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
-                
+
     }
 
 }
