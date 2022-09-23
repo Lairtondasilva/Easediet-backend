@@ -30,7 +30,10 @@ import com.gft.diet.translation.RespText;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Diet endpoint")
 @RequestMapping("/diets")
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -48,6 +51,7 @@ public class DietController {
     private FoodService foodService;
 
     @PostMapping("/foods")
+    @Operation(summary = "Find a list of foods of a specific diet")
     @Retry(name = "default", fallbackMethod = "GetFoodListFail")
     public FoodList getFoodList(@RequestBody DietModel diet) throws IOException, InterruptedException {
         List<String> foods = new ArrayList<>();
@@ -68,17 +72,20 @@ public class DietController {
     }
 
     @GetMapping("/all")
+    @Operation(summary = "Find all list of diets in database")
     public ResponseEntity<List<DietModel>> getAllDiets() {
         return ResponseEntity.ok(dietRepository.findAll());
     }
 
     @GetMapping("/{dietId}")
+    @Operation(summary = "Find a specific diet in database")
     public ResponseEntity<DietModel> getDietById(@PathVariable UUID dietId) {
         return dietRepository.findById(dietId).map(diet -> ResponseEntity.ok(diet))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @GetMapping("/nutritionist/{nutritionistId}")
+    @Operation(summary = "Find All diets of a specific nutritionist")
     @Retry(name = "default", fallbackMethod = "getAllDietsOfNutritionistId")
     public ResponseEntity<List<DietModel>> getAllDietsOfNutritionistById(@PathVariable UUID nutritionistId) {
         return ResponseEntity.ok(dietRepository.findAllByNutritionistId(nutritionistId));
@@ -89,23 +96,27 @@ public class DietController {
     }
 
     @GetMapping("/dietgroup/{dietGroupId}")
+    @Operation(summary = "Find the diet of a specific group")
     public ResponseEntity<DietModel> getDietOfDietGroupById(@PathVariable UUID dietGroupId) {
         return dietRepository.findByDietGroupId(dietGroupId).map(diet -> ResponseEntity.ok(diet))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
+    @Operation(summary = "creates a new diet in database")
     public ResponseEntity<DietModel> dietRegister(@Valid @RequestBody DietModel diet) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dietRepository.save(diet));
     }
 
     @PutMapping
+    @Operation(summary = "update a specific diet in database")
     public ResponseEntity<DietModel> dietUpdate(@Valid @RequestBody DietModel diet) {
         return dietService.updateDiet(diet).map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{dietId}")
+    @Operation(summary = "deletes a specific diet in database")
     public void dietDelete(@PathVariable UUID dietId) {
         dietRepository.deleteById(dietId);
     }

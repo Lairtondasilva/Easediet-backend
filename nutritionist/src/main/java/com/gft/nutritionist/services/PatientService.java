@@ -12,16 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gft.nutritionist.model.PatientModel;
 
-import feign.Headers;
-import feign.Param;
-
-@FeignClient(name = "PATIENT-SERVICE")
+@FeignClient(name = "patient")
 @Service
 public interface PatientService {
 
     @GetMapping(value = "/patient/nutritionist/{nutritionistId}")
     PatientModel findByNutritionistId(@PathVariable("nutritionistId") String nutritionistId);
 
-    @GetMapping("/patient/email/{email}")
+    @GetMapping(value = "/patient/email/{email}")
     Optional<PatientModel> findByPatientEmail(@PathVariable("email") String email);
 }

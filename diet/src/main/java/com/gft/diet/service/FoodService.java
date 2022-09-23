@@ -6,21 +6,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mapping.model.CamelCaseSplittingFieldNamingStrategy;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.gft.diet.convertion.Conversor;
 import com.gft.diet.model.FoodList;
-import com.gft.diet.model.FoodModel;
 import com.google.gson.Gson;
 
 @Service

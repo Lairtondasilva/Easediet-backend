@@ -132,11 +132,10 @@ public class NutritionistController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Optional<NutritionistModel>> nutritionistRegisterPost(
+    public ResponseEntity<NutritionistModel> nutritionistRegisterPost(
             @RequestBody NutritionistModel nutritionist) {
         nutritionist.setPassword(passwordEncoder.encode(nutritionist.getPassword()));
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(nutritionistService.registerNutritionist(nutritionist));
+        return nutritionistService.registerNutritionist(nutritionist);
     }
 
     // @PostMapping("/login")
