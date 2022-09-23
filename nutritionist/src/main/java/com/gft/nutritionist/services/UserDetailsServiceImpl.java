@@ -3,11 +3,6 @@ package com.gft.nutritionist.services;
 import java.util.List;
 import java.util.Optional;
 
-<<<<<<< HEAD
-
-=======
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> b4e158939f81838224d883bb150d9789a8eaecf4
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

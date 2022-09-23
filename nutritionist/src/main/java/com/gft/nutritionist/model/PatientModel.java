@@ -3,10 +3,6 @@ package com.gft.nutritionist.model;
 import java.time.LocalDate;
 import java.util.UUID;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b4e158939f81838224d883bb150d9789a8eaecf4
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
