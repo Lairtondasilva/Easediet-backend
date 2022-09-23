@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.gft.nutritionist.model.DietGroupModel;
 
 @Service
-@FeignClient(name = "diets-groups")
+@FeignClient(name = "diets-groups-service")
 public interface DietGroupService {
 
     @GetMapping(value = "/diets-groups/nutritionist/{nutritionistId}")

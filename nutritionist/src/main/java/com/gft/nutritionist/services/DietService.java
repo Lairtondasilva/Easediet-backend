@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gft.nutritionist.model.DietModel;
 
-@FeignClient(name = "diet")
+@FeignClient(name = "diet-service")
 @Service
 public interface DietService {
     @GetMapping(value = "/diets/nutritionist/{nutritionistId}")

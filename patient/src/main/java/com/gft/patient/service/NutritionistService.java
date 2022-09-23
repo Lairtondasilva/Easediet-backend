@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gft.patient.models.NutritionistModel;
 
-@FeignClient(name = "nutritionist")
+@FeignClient(name = "nutritionist-service")
 @Service
 public interface NutritionistService {
 
