@@ -19,7 +19,6 @@ public class NutritionistRepositoryTest {
     @Autowired
     private NutritionistRepository nutritionistRepositoryTest;
 
-    private NutritionistModel nutritionistModelTest;
 
     @BeforeAll
     void start() {

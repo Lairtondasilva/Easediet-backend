@@ -13,11 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.gft.patient.controllers.PatientController;
 import com.gft.patient.models.PatientModel;
@@ -27,9 +25,6 @@ import com.gft.patient.service.PatientService;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = org.mockito.quality.Strictness.LENIENT)
 public class PatientControllerTest {
-
-    @Autowired
-    private WebApplicationContext wac;
 
     @Mock
     private PatientService patientService;

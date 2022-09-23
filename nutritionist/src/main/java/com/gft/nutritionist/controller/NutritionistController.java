@@ -34,7 +34,6 @@ import com.gft.nutritionist.payload.TokenRefreshRequest;
 import com.gft.nutritionist.payload.TokenRefreshResponse;
 import com.gft.nutritionist.repository.NutritionistRepository;
 import com.gft.nutritionist.services.DietGroupService;
-import com.gft.nutritionist.services.DietService;
 import com.gft.nutritionist.services.NutritionistService;
 import com.gft.nutritionist.services.RefreshTokenService;
 import com.gft.nutritionist.util.JwtUtil;
@@ -61,9 +60,6 @@ public class NutritionistController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private DietService dietService;
 
     @Autowired
     private JwtUtil jwtUtil;

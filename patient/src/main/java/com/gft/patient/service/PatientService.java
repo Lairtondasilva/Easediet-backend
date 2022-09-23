@@ -13,16 +13,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.patient.models.PatientModel;
 import com.gft.patient.repositories.PatientRepository;
-import com.gft.patient.util.JwtUtil;
 
 @Service
 public class PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
-
-    @Autowired
-    private JwtUtil jwtUtil;
 
     // registers a patient
     public ResponseEntity<PatientModel> registerPatient(PatientModel patient) {
@@ -96,14 +92,6 @@ public class PatientService {
     // return Optional.empty();
 
     // }
-
-    private boolean compararSenhas(String senhaDigitada, String senhaBD) {
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-        return encoder.matches(senhaDigitada, senhaBD);
-
-    }
 
     private String criptografarSenha(String senha) {
 
