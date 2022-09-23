@@ -18,17 +18,17 @@ public class GatewayConfig {
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route("diet-service",
-						r -> r.path("/diets/**").filters(f -> f.filter(filter)).uri("lb://DIET-SERVICE"))
+						r -> r.path("/diets/**").filters(f -> f.filter(filter)).uri("lb://diet-service"))
 				.route("diet-service",
-						r -> r.path("/translate/**").filters(f -> f.filter(filter)).uri("lb://DIET-SERVICE"))
+						r -> r.path("/translate/**").filters(f -> f.filter(filter)).uri("lb://diet-service"))
 				.route("nutritionist-service",
-						r -> r.path("/nutritionist/**").filters(f -> f.filter(filter)).uri("lb://NUTRITIONIST-SERVICE"))
+						r -> r.path("/nutritionist/**").filters(f -> f.filter(filter)).uri("lb://nutritionist-service"))
 				.route("patient-service",
-						r -> r.path("/patient/**").filters(f -> f.filter(filter)).uri("lb://PATIENT-SERVICE"))
+						r -> r.path("/patient/**").filters(f -> f.filter(filter)).uri("lb://patient-service"))
 				.route("payment-service",
-						r -> r.path("/payment/**").filters(f -> f.filter(filter)).uri("lb://PAYMENT-SERVICE"))
+						r -> r.path("/payment/**").filters(f -> f.filter(filter)).uri("lb://payment-service"))
 				.route("diets-groups-service",
-						r -> r.path("/diets-groups/**").filters(f -> f.filter(filter)).uri("lb://DIETS-GROUPS-SERVICE"))
+						r -> r.path("/diets-groups/**").filters(f -> f.filter(filter)).uri("lb://diets-groups-service"))
 				.build();
 	}
 }

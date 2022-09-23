@@ -48,6 +48,7 @@ public class WebSecuritConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/nutritionist/refreshtoken").permitAll()
                 .antMatchers("/nutritionist/email/{email}").permitAll()
                 .antMatchers("/nutritionist/{nutritionistId}").permitAll()
+                .antMatchers("/nutritionist-service/**").permitAll()
                 .anyRequest().hasAnyAuthority("NUTRITIONIST");
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

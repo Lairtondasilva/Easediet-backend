@@ -46,6 +46,7 @@ public class WebSecuritConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/patient/register").permitAll()
                 .antMatchers("/patient/refreshtoken").permitAll()
                 .antMatchers("/patient/email/{email}").permitAll()
+                .antMatchers("/patient-service/**").permitAll()
                 .antMatchers("/patient/all").hasAnyAuthority("NUTRITIONIST", "PATIENT")
                 .anyRequest().permitAll();
 
