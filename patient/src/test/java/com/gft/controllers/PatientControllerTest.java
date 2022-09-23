@@ -21,7 +21,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.gft.patient.controllers.PatientController;
 import com.gft.patient.models.PatientModel;
-import com.gft.patient.models.Roles;
 import com.gft.patient.repositories.PatientRepository;
 import com.gft.patient.service.PatientService;
 

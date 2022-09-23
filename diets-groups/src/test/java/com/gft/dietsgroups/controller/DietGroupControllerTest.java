@@ -1,7 +1,6 @@
 package com.gft.dietsgroups.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.gft.dietsgroups.models.DietGroupModel;
-import com.gft.dietsgroups.models.PatientModel;
 import com.gft.dietsgroups.repositories.DietGroupRepository;
 import com.gft.dietsgroups.services.PatientService;
 

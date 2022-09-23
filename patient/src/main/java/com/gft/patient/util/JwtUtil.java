@@ -1,20 +1,16 @@
 package com.gft.patient.util;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.gft.patient.data.PatientDetailsData;
 import com.gft.patient.exception.JwtTokenMalformedException;
 import com.gft.patient.exception.JwtTokenMissingException;
-import com.gft.patient.models.Roles;
 import com.gft.patient.repositories.PatientRepository;
 
 import io.jsonwebtoken.Claims;
@@ -24,7 +20,6 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.impl.DefaultClaims;
 
 @Component
 public class JwtUtil {

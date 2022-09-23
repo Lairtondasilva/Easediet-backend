@@ -2,9 +2,6 @@ package com.gft.nutritionist.services;
 
 import java.util.Optional;
 
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.core.HttpHeaders;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;

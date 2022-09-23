@@ -23,7 +23,10 @@ import com.gft.payment.services.PaymentService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Payment Endpoint")
 @RestController
 @RequestMapping("/payment")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -37,16 +40,19 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    @Operation(summary = "FindAll Payment")
     @GetMapping("/all")
     public List<PaymentModel> getAll() {
         return paymentRepository.findAll();
     }
 
+    @Operation(summary = "Find Payment by Id")
     @GetMapping("/{id}")
     public Optional<PaymentModel> getById(@PathVariable UUID id) {
         return paymentRepository.findById(id);
     }
 
+    @Operation(summary = "Find Bill By Patient Id")
     @GetMapping("/patient/{id}")
     @Retry(name = "default", fallbackMethod = "getBillFail")
     public List<PatientPaymentResponse> getBill(@PathVariable UUID id) {
@@ -57,6 +63,7 @@ public class PaymentController {
         return ResponseEntity.badRequest().body("The service is currently unavailable.");
     }
 
+    @Operation(summary = "Pay Bill")
     @PutMapping("/pay/{id}")
     public PatientPaymentResponse toPayBill(@PathVariable(name = "id") UUID id) {
         return paymentService.toPayBill(id);
@@ -66,11 +73,13 @@ public class PaymentController {
         return ResponseEntity.badRequest().body("Unable to make payment");
     }
 
+    @Operation(summary = "Create Bill")
     @PostMapping
     public List<PaymentModel> createBills() {
         return paymentService.createBills();
     }
 
+    @Operation(summary = "Delete Payment by Id")
     @DeleteMapping("/{id}")
     public void deletePayment(@PathVariable UUID id) {
         paymentRepository.deleteById(id);
