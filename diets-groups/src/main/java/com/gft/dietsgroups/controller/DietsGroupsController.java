@@ -20,6 +20,10 @@ import com.gft.dietsgroups.models.DietGroupModel;
 import com.gft.dietsgroups.repositories.DietGroupRepository;
 import com.gft.dietsgroups.services.PatientService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "DietsGroups Endpoint")
 @RestController
 @RequestMapping("/diets-groups")
 public class DietsGroupsController {
@@ -30,11 +34,13 @@ public class DietsGroupsController {
     @Autowired(required = true)
     private PatientService patientService;
 
+    @Operation(summary = "FindAll DietsGroups")
     @GetMapping("/all")
     public ResponseEntity<List<DietGroupModel>> all() {
         return ResponseEntity.ok(dietGroupRepository.findAll());
     }
 
+    @Operation(summary = "Find DietsGroups by Id")
     @GetMapping("/{dietGroupId}")
     public ResponseEntity<DietGroupModel> findById(@PathVariable UUID dietGroupId) {
         return dietGroupRepository.findById(dietGroupId).map(group -> {
@@ -46,6 +52,7 @@ public class DietsGroupsController {
 
     // @Retry(name = "default", fallbackMethod =
     // "getDietsGroupsByNutritionistIdFail")
+    @Operation(summary = "Find DietsGroups by Nutritionist Id")
     @GetMapping(value = "/nutritionist/{nutritionistId}")
     public List<DietGroupModel> findDietsGroupsByNutritionistId(@PathVariable UUID nutritionistId) {
         return dietGroupRepository.findAllByNutritionistId(nutritionistId);
@@ -55,11 +62,13 @@ public class DietsGroupsController {
         return List.of(null);
     }
 
+    @Operation(summary = "Create DietsGroups")
     @PostMapping
     public ResponseEntity<DietGroupModel> createDietGroup(@RequestBody DietGroupModel dietGroup) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dietGroupRepository.save(dietGroup));
     }
 
+    @Operation(summary = "Update DietsGroups")
     @PutMapping
     public ResponseEntity<DietGroupModel> updateDietGroup(@RequestBody DietGroupModel dietGroup) {
         if (dietGroupRepository.findById(dietGroup.getId()).isEmpty())
@@ -67,6 +76,7 @@ public class DietsGroupsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dietGroupRepository.save(dietGroup));
     }
 
+    @Operation(summary = "Delete DietsGroups")
     @DeleteMapping("/dietGroupId")
     public void deleteDietGroup(@PathVariable UUID dietGroupId) {
         dietGroupRepository.deleteById(dietGroupId);

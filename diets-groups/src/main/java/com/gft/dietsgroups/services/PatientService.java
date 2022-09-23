@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gft.dietsgroups.models.PatientModel;
 
-
 @Service
 @FeignClient(name = "patient")
 public interface PatientService {
-    @GetMapping("/patient/diets-groups/{dietsGroupsId}            ")
-    List<PatientModel> findPatientByDietsGroupsId(@PathVariable UUID dietsGroupsId);
+
+    @GetMapping("/patient/diets-groups/{dietGroupId}")
+    List<PatientModel> findPatientByDietsGroupsId(@PathVariable UUID dietGroupId);
 }

@@ -17,19 +17,18 @@ public class GatewayConfig {
 	@Bean
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route("auth-service", r -> r.path("/auth/**").filters(f -> f.filter(filter)).uri("lb://AUTH"))
-				.route("diet-service", r -> r.path("/diets/**").filters(f -> f.filter(filter)).uri("lb://DIET"))
-				.route("diet-service",
+				.route("diet", r -> r.path("/diets/**").filters(f -> f.filter(filter)).uri("lb://DIET"))
+				.route("diet",
 						r -> r.path("/translate/**").filters(f -> f.filter(filter)).uri("lb://DIET"))
-				.route("nutritionist-service",
+				.route("nutritionist",
 						r -> r.path("/nutritionist/**").filters(f -> f.filter(filter)).uri("lb://NUTRITIONIST"))
-				.route("patient-service",
+				.route("patient",
 						r -> r.path("/patient/**").filters(f -> f.filter(filter)).uri("lb://PATIENT"))
-				.route("patient-service",
+				.route("patient",
 						r -> r.path("/login").filters(f -> f.filter(filter)).uri("lb://PATIENT"))
-				.route("payment-service",
+				.route("payment",
 						r -> r.path("/payment/**").filters(f -> f.filter(filter)).uri("lb://PAYMENT"))
-				.route("diets-groups-service",
+				.route("diets-groups",
 						r -> r.path("/diets-groups/**").filters(f -> f.filter(filter)).uri("lb://DIETS-GROUPS"))
 				.build();
 	}

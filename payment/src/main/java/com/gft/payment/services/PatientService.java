@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gft.payment.models.PatientModel;
 
-@RequestMapping("/patient")
+@Service
 @FeignClient("patient")
 public interface PatientService {
 
-    @GetMapping("/{id}")
+    @GetMapping("/patient/{id}")
     public PatientModel getPatientById(@PathVariable UUID id);
 
-    @GetMapping("/all")
+    @GetMapping("/patient/all")
     public List<PatientModel> getAllPatients();
 }

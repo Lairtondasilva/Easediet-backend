@@ -17,8 +17,10 @@ import com.gft.diet.translation.RespText;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@Tag(name = "Translate")
 @RequestMapping("/translate")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @CircuitBreaker(name = "default")

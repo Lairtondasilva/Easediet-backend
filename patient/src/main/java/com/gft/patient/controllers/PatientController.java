@@ -37,7 +37,10 @@ import com.gft.patient.util.JwtUtil;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Nutritionist Endpoint")
 @RestController
 @RequestMapping("/patient")
 @CircuitBreaker(name = "default")
@@ -59,6 +62,7 @@ public class PatientController {
     private PatientRepository patientRepository;
 
 
+    @Operation(summary = "Login Patient")
     @PostMapping("/login")
     public ResponseEntity<JWTResponse> login(@RequestBody UserLogin userLogin) {
         Authentication authentication = authenticationManager
@@ -80,6 +84,7 @@ public class PatientController {
 
     }
 
+    @Operation(summary = "Refresh Patient Token")
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
@@ -95,24 +100,29 @@ public class PatientController {
                         "Refresh token is not in database!"));
     }
 
+    @Operation(summary = "Find Patient By Email")
     @GetMapping("/email/{email}")
     public Optional<PatientModel> findByPatientEmail(@PathVariable("email") String email) {
         return patientRepository.findByEmailContainingIgnoreCase(email);
     }
 
     @Retry(name = "default")
+    @Operation(summary = "Find All Patients")
     @GetMapping("/all")
     public ResponseEntity<List<PatientModel>> getAll() {
         return patientService.getAllPatients();
     }
 
     @Retry(name = "default")
+    @Operation(summary = "Find Patient by Id")
     @GetMapping("/{id}")
     public ResponseEntity<PatientModel> getById(@PathVariable UUID id) {
         return patientService.getPatientById(id);
     }
 
+
     @GetMapping("/diets-groups/{dietGroupId}")
+    @Operation(summary = "Find Patient by Diet Group Id")
     @Retry(name = "default", fallbackMethod = "getAllByGroupIdFail")
     public ResponseEntity<List<PatientModel>> getAllByGroupId(@PathVariable UUID dietGroupId) {
         // var resp = new RestTemplate().getForEntity("http://localhost:8080/food",
@@ -124,16 +134,19 @@ public class PatientController {
         return ResponseEntity.ok(null);
     }
 
+    @Operation(summary = "Register a Patient")
     @PostMapping("/register")
     public ResponseEntity<PatientModel> registerPatient(@RequestBody @Valid PatientModel patient) {
         return patientService.registerPatient(patient);
     }
 
+    @Operation(summary = "Update info of a Patient")
     @PutMapping
     public ResponseEntity<PatientModel> updatePatient(@RequestBody @Valid PatientModel patient) {
         return patientService.updatePatient(patient);
     }
 
+    @Operation(summary = "Delete a Patient")
     @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable UUID id) {
         patientService.delete(id);

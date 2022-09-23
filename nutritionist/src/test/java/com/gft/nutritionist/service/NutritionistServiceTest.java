@@ -35,12 +35,16 @@ public class NutritionistServiceTest {
             "Miriam Pacheco", "111111", "miriam.pacheco@nutri.com", "12345678", "Healthy", null, null,
             "NUTRITIONIST");
 
+    NutritionistModel nutritionist2 = new NutritionistModel(UUID.randomUUID(),
+            "Miriam Pacheco Buarque", "222222", "miriam.pacheco@nutri.com", "12345678", "Bulking", null, null,
+            "NUTRITIONIST");
+
     @Test
     public void registerTheSameUserTwice() {
         var nutritionistResponse = nutritionistService.registerNutritionist(nutritionist1);
         var throwsResponse = assertThrows(ResponseStatusException.class, () -> {
             when(nutritionistRepository.findByEmailContainingIgnoreCase(nutritionist1.getEmail()))
-            .thenReturn(Optional.of(new NutritionistModel()));
+                    .thenReturn(Optional.of(new NutritionistModel()));
             nutritionistService.registerNutritionist(nutritionist1);
         });
         assertEquals(nutritionistResponse.getStatusCode(),
@@ -51,7 +55,8 @@ public class NutritionistServiceTest {
 
     @Test
     public void checkIfNutritionistExistsTest() {
-        when(nutritionistRepository.findByEmailContainingIgnoreCase("lairton@gmail.com")).thenReturn(Optional.of(nutritionist1));
+        when(nutritionistRepository.findByEmailContainingIgnoreCase("lairton@gmail.com"))
+                .thenReturn(Optional.of(nutritionist1));
         when(nutritionistRepository.findByEmailContainingIgnoreCase("Andrei@gmail.com")).thenReturn(Optional.empty());
 
         var ExistingNutritionist = nutritionistService.checkIfNutritionistExists("lairton@gmail.com");
