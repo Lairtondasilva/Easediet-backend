@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
+import lombok.var;
+
 @Configuration
 public class OpenApiConfiguration {
 
@@ -18,7 +20,7 @@ public class OpenApiConfiguration {
     @Lazy(false)
     public List<GroupedOpenApi> apis(SwaggerUiConfigParameters config,
             RouteDefinitionLocator locator) {
-        List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+        var definitions = locator.getRouteDefinitions().collectList().block();
 
         definitions.stream().filter(routeDefinition -> routeDefinition.getId()
                 .matches(".*-service"))

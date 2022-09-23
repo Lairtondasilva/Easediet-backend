@@ -1,5 +1,5 @@
 spring:
   application:
-    name: patient
+    name: patient-service
   config:
     import: optional:configserver:http://localhost:8888

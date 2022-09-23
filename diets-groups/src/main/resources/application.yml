@@ -1,5 +1,5 @@
 spring:
   application:
-    name: diets-groups
+    name: diets-groups-service
   config:
     import: optional:configserver:http://localhost:8888

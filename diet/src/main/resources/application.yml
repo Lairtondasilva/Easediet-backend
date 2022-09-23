@@ -1,5 +1,5 @@
 spring:
   application:
-    name: diet
+    name: diet-service
   config:
     import: optional:configserver:http://localhost:8888
